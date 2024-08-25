@@ -1,13 +1,26 @@
-const express = require('express');
+const express = require("express");
 
-const app = express();
+const cors = require("cors");
+
+const mongoose = require("mongoose");
+
+const dotenv = require("dotenv");
+
+const PORT = process.env.PORT || 5001;
+
+const app=express()
+
+dotenv.config();
+
+app.use(express.json());
 
 app.get('/',(req,res)=>{
 
-  res.send("Hello World")
+	res.send("Hello from Nodejs Server")
 })
 
-app.listen(5000,() => {
-  console.log("Server started at port 5000")
-})
+app.listen(PORT, () => {
+  console.log(`Server started at Port no .${PORT}`);
+});
+
 

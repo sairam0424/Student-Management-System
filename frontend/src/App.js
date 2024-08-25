@@ -1,19 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
 function App() {
   return (
-
-    <>
-      <div><h1>Login Page</h1></div>
-
-      <form>
-
-        <input type=""></input>
-      </form>
-
-    </>
-  );
+	<div>
+	<h1>Hello From React Server</h1>
+	  
+	</div>
+  )
 }
 
-export default App;
+export default App
