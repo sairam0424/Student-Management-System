@@ -10,12 +10,8 @@ const resolvers = {
   Query: {
     users: () => users,
     user: (_, { _id }) => users.find((user) => user._id == _id),
-    quotes: () => quotes,
-    iquote: (_, { by }) => quotes.filter((quote) => quote.by == by),
   },
-  User: {
-    quotes: (ur) => quotes.filter((quote) => quote.by == ur._id),
-  },
+
   Mutation: {
     signupUser: async (_, { userNew }) => {
       const user = await User.findOne({ email: userNew.email });
@@ -30,6 +26,7 @@ const resolvers = {
       });
       return await newUser.save();
     },
+
     signinUser: async (_, { userSignin }) => {
       const user = await User.findOne({ email: userSignin.email });
       if (!user) {
@@ -39,8 +36,8 @@ const resolvers = {
       if (!doMatch) {
         throw new Error("email or password in invalid");
       }
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET);
-      return { token };
+      const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET);
+      return { token, role: user.role };
     },
   },
 };
