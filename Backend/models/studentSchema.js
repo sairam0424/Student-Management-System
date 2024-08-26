@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-  roolno: {
-    type: String,
+  rollno: {
+    type: Number,
 
     required: true,
-
-    unique: true,
   },
   name: {
     type: String,
@@ -21,6 +19,15 @@ const studentSchema = new mongoose.Schema({
     required: true,
   },
   college: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "admin",
+    required: true,
+  },
+  role: {
+    type: String,
+    default: "Student",
+  },
+  school: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "admin",
     required: true,

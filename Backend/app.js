@@ -8,19 +8,24 @@ const dotenv = require("dotenv");
 
 const PORT = process.env.PORT || 5001;
 
-const app=express()
+const app = express();
 
 dotenv.config();
 
+app.use(cors());
+
 app.use(express.json());
 
-app.get('/',(req,res)=>{
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(console.log("Connected to MongoDb"))
+  .catch((err) => console.log("Not Connected To Netword", err));
 
-	res.send("Hello from Nodejs Server")
-})
+app.get("/", Routes);
 
 app.listen(PORT, () => {
   console.log(`Server started at Port no .${PORT}`);
 });
-
-
