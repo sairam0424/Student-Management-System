@@ -1,34 +1,27 @@
-const express = require("express");
+import { ApolloServer, gql } from "apollo-server";
 
-const cors = require("cors");
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
-const mongoose = require("mongoose");
+const typeDefs = gql`
+  type Query {
+    greet: String
+  }
+`;
 
-const dotenv = require("dotenv");
+const resolvers = {
+  Query: {
+    greet: () => "Hello World",
+  },
+};
 
-const Routes = require('./routes/route')
+const server = new ApolloServer({
+  typeDefs,
 
-const PORT = process.env.PORT || 5001;
+  resolvers,
 
-const app = express();
-
-dotenv.config();
-
-app.use(cors());
-
-app.use(express.json());
-
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(console.log("Connected to MongoDb"))
-  .catch((err) => console.log("Not Connected To Netword", err));
-
-app.get("/", Routes);
-
-app.listen(PORT, () => {
-  console.log(`Server started at Port no .${PORT}`);
+  plugins:[ApolloServerPluginLandingPageGraphQLPlayground()]
 });
 
+server.listen().then(({ url }) => {
+  console.log(`🐵🙊🙈 Server ready at ${url}`);
+});
