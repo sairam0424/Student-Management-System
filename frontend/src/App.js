@@ -1,17 +1,17 @@
 import React from "react";
-import HomePage from "./pages/HomePage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ChooseUser from "./pages/ChooseUser";
-import AdminRegister from "./pages/AdminRegister";
+// import Login from './pages/Login'
+// import Signup from './pages/Signup'
+import NavBar from "./components/Navbar";
+// import Home from "./pages/Home";
+import { useRoutes } from "react-router-dom";
+import { routes } from "./routes";
 function App() {
+  const element = useRoutes(routes);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/choose" element={<ChooseUser />} />
-        <Route path="/AdminRegister" element={<AdminRegister />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <NavBar />
+      {element}
+    </div>
   );
 }
 
