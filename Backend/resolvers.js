@@ -8,8 +8,8 @@ import { JWT_SECRET } from "./config.js";
 
 const resolvers = {
   Query: {
-    users: () => users,
-    user: (_, { _id }) => users.find((user) => user._id == _id),
+    users: async () => await User.find({}),
+    user: async (_, { _id }) =>await User.findOne({_id})
   },
 
   Mutation: {

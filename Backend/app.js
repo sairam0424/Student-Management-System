@@ -21,19 +21,19 @@ mongoose
 
 import "./models/UserModel.js";
 import resolvers from "./resolvers.js";
+const context = ({ req }) => {
+  const { authorization } = req.headers;
 
+  if (authorization) {
+    const { userId } = jwt.verify(authorization, JWT_SECRET);
+
+    return { userId };
+  }
+}
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
-    const { authorization } = req.headers;
-
-    if (authorization) {
-      const { userId } = jwt.verify(authorization, JWT_SECRET);
-
-      return { userId };
-    }
-  },
+  context,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
 
