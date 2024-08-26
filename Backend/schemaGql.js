@@ -19,10 +19,11 @@ const typeDefs = gql`
      by:ID
  }
 
- type Mutation{
-     signupUserDummy(userNew:UserInput!):User
- }
+  type Mutation{
+    signupUserDummy(userNew:UserInput!):User
+  }
 
+  
  input UserInput{
     firstName:String!
     lastName:String!
