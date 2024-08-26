@@ -1,6 +1,7 @@
 import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import typeDefs from "./schemaGql.js";
+import cors from 'cors'
 
 import mongoose from "mongoose";
 import { JWT_SECRET, MONGO_URL } from "./config.js";
