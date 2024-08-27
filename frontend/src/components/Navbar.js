@@ -1,46 +1,39 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 
 export default function NavBar() {
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-  return (
-    <nav>
-      <div className="nav-wrapper #673ab7 deep-purple">
-        <Link to="/" className="brand-logo left">
-          Home SMS
-        </Link>
-        <ul id="nav-mobile" className="right">
-          {token ? (
-            <>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
+    const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
-              <li>
-                <button
-                  className="red btn"
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                  }}
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
-  );
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
+
+    return (
+        <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar.Brand as={Link} to="/">Home SMS</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    {/* Home link is placed on the left */}
+                </Nav>
+                <Nav className="ml-auto">
+                    {token ? (
+                        <>
+                            <Button variant="danger" onClick={handleLogout}>
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+                        </>
+                    )}
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+    );
 }

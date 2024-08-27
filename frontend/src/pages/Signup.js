@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { SIGNUP_USER } from '../gqlopertions/mutations';
+import { Container, Form, Button, Alert, ButtonGroup } from 'react-bootstrap';
 
 export default function Signup() {
     const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ export default function Signup() {
     });
     const [signupUser, { data, loading, error }] = useMutation(SIGNUP_USER);
 
-    if (loading) return <h1>Loading</h1>;
+    if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
 
     const handleChange = (e) => {
         setFormData({
@@ -21,12 +22,14 @@ export default function Signup() {
             [e.target.name]: e.target.value
         });
     };
+
     const handleRoleChange = (role) => {
         setFormData({
             ...formData,
             role
         });
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         signupUser({
@@ -37,66 +40,87 @@ export default function Signup() {
     };
 
     return (
-        <div className="container my-container">
-            {error && <div className="red card-panel">{error.message}</div>}
+        <Container className="my-5" style={{ maxWidth: '500px' }}>
+            {error && <Alert variant="danger">{error.message}</Alert>}
             {data && data.user && (
-                <div className="green card-panel">{data.user.firstName} is SignedUp. You can login now!</div>
+                <Alert variant="success">{data.user.firstName} is signed up. You can login now!</Alert>
             )}
-            <h5>Signup!!</h5>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="First Name"
-                    name="firstName"
-                    // value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Last Name"
-                    name="lastName"
-                    // value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    // value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    // value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-                <div className="signup-role-buttons">
-                        <button
-                            type="button"
+            <h3 className="text-center mb-4">Signup</h3>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formFirstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter your first name"
+                        name="firstName"
+                        onChange={handleChange}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formLastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter your last name"
+                        name="lastName"
+                        onChange={handleChange}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter your email"
+                        name="email"
+                        onChange={handleChange}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter your password"
+                        name="password"
+                        onChange={handleChange}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Role</Form.Label>
+                    <ButtonGroup className="d-flex">
+                        <Button
+                            variant={formData.role === 'admin' ? 'primary' : 'outline-primary'}
                             onClick={() => handleRoleChange('admin')}
-                            className={`signup-role-button ${formData.role === 'admin' ? 'active' : ''}`}
+                            className="flex-fill"
                         >
                             Admin
-                        </button>
-                        <button
-                            type="button"
+                        </Button>
+                        <Button
+                            variant={formData.role === 'user' ? 'primary' : 'outline-primary'}
                             onClick={() => handleRoleChange('user')}
-                            className={`signup-role-button ${formData.role === 'user' ? 'active' : ''}`}
+                            className="flex-fill"
                         >
                             User
-                        </button>
-                    </div>
-                <Link to="/login">
-                    <p>Already have an account?</p>
-                </Link>
-                <button className="btn #673ab7 deep-purple" type="submit">Submit</button>
-            </form>
-        </div>
+                        </Button>
+                    </ButtonGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-3 text-center">
+                    <Link to="/login">
+                        <Button variant="link">Already have an account?</Button>
+                    </Link>
+                </Form.Group>
+
+                <Button className="w-100" variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+        </Container>
     );
 }

@@ -5,6 +5,8 @@ import NavBar from "./components/Navbar";
 // import Home from "./pages/Home";
 import { useRoutes } from "react-router-dom";
 import { routes } from "./routes";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   const element = useRoutes(routes);
   return (
