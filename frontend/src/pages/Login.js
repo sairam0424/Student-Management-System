@@ -1,41 +1,68 @@
-import React, { useState } from "react";
+import { useMutation } from '@apollo/client'
+import React,{useState} from 'react'
+import { LOGIN_USER } from '../gqlopertions/mutations'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-  const [formData, setFormData] = useState({});
+    const navigate = useNavigate()
+    const [formData,setFormData] = useState({
+        email:'',
+        password:''
+    })
+    const [signinUser,{data,loading,error}]=useMutation(LOGIN_USER)
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    if(loading) return <h1>loading</h1>
+    if(data){
+        localStorage.setItem("token",data.user.token)
+        if (data.role === 'admin') {
+            navigate('/admin-dashboard');
+        } else {
+            navigate('/user-dashboard');     
+        }
+        navigate('/');
+    }
+    
+    const handleChange = (e)=>{
+        setFormData({
+         ...formData,
+         [e.target.name]:e.target.value
+        })
+    
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-  return (
-    <div className="container my-container">
-      <h5>Login!!</h5>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="email"
-          name="email"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          onChange={handleChange}
-          required
-        />
-        <button className="btn #673ab7 deep-purple" type="submit">
-          Login
-        </button>
-      </form>
-    </div>
-  );
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+        signinUser({
+            variables :{
+                userSignin:formData
+            }
+        }
+        )
+    }
+    return (
+        <div className="container my-container">
+        {
+            error && <div className='red card-panel'>{error.message}</div>
+        }
+
+            <h5>Login!!</h5>
+            <form onSubmit={handleSubmit}>
+                <input
+                 type="email"
+                 placeholder="email"
+                 name="email"
+                 onChange={handleChange}
+                 required
+                 />
+                <input
+                 type="password"
+                 placeholder="password"
+                 name="password"
+                 onChange={handleChange}
+                 required
+                 />
+                 <button className="btn #673ab7 deep-purple" type="submit">Login</button>
+            </form>
+        </div>
+    )
 }

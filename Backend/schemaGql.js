@@ -33,7 +33,9 @@ const typeDefs = gql`
   input UserSigninInput {
     email: String!
     password: String!
-    role: String!
+    
   }
 `;
 export default typeDefs;
+
+// if possible add the role in input UseSignInInput role:String
