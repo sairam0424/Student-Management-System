@@ -48,7 +48,7 @@ export default function Signup() {
                     type="text"
                     placeholder="First Name"
                     name="firstName"
-                    value={formData.firstName}
+                    // value={formData.firstName}
                     onChange={handleChange}
                     required
                 />
@@ -56,7 +56,7 @@ export default function Signup() {
                     type="text"
                     placeholder="Last Name"
                     name="lastName"
-                    value={formData.lastName}
+                    // value={formData.lastName}
                     onChange={handleChange}
                     required
                 />
@@ -64,7 +64,7 @@ export default function Signup() {
                     type="email"
                     placeholder="Email"
                     name="email"
-                    value={formData.email}
+                    // value={formData.email}
                     onChange={handleChange}
                     required
                 />
@@ -72,7 +72,7 @@ export default function Signup() {
                     type="password"
                     placeholder="Password"
                     name="password"
-                    value={formData.password}
+                    // value={formData.password}
                     onChange={handleChange}
                     required
                 />
