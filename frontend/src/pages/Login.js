@@ -14,12 +14,13 @@ export default function Login() {
     if(loading) return <h1>loading</h1>
     if(data){
         localStorage.setItem("token",data.user.token)
-        if (data.role === 'admin') {
-            navigate('/admin-dashboard');
+        console.log("role",data.user.role) 
+        if (data.user.role === 'admin') {
+            navigate('/admindashboard');
         } else {
-            navigate('/user-dashboard');     
+            navigate('/userdashboard');     
         }
-        navigate('/');
+        // navigate('/');
     }
     
     const handleChange = (e)=>{

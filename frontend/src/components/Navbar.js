@@ -16,6 +16,7 @@ export default function NavBar() {
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
+
               <li>
                 <button
                   className="red btn"

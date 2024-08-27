@@ -30,7 +30,7 @@ const resolvers = {
     signinUser: async (_, { userSignin }) => {
       const user = await User.findOne({ email: userSignin.email });
       if (!user) {
-        throw new Error("User dosent exists with that email");
+        throw new Error("User doesnt exists with that email");
       }
       const doMatch = await bcrypt.compare(userSignin.password, user.password);
       if (!doMatch) {
