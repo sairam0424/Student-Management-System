@@ -21,6 +21,7 @@ mongoose
 //import models here
 
 import "./models/UserModel.js";
+import "./models/StudentSchema.js"
 import resolvers from "./resolvers.js";
 const context = ({ req }) => {
   const { authorization } = req.headers;
