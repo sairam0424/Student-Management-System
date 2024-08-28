@@ -3,9 +3,9 @@ import { useMutation } from '@apollo/client';
 import { DELETE_STUDENT } from '../gqlopertions/mutations';
 import { Card, Button, Table, Image } from 'react-bootstrap';
 
-function StudentList({ students, onDeleteStudent, onEditStudent }) { // Added onEditStudent as a prop
+  function StudentList({ students, role,onView, onDeleteStudent, onEditStudent }) { // Added onEditStudent as a prop
   const [deleteStudent] = useMutation(DELETE_STUDENT);
-
+    // console.log("Student Role",role)
   const handleDelete = async (_id) => {
     try {
       await deleteStudent({ variables: { _id: _id } });
@@ -41,8 +41,16 @@ function StudentList({ students, onDeleteStudent, onEditStudent }) { // Added on
                 <td>{student.attendance}</td>
                 <td><Image src={student.image} alt={student.name} style={{ width: '50px' }} roundedCircle /></td>
                 <td>
-                  <Button variant="primary" size="sm" onClick={() => onEditStudent(student)}>Edit</Button> {/* Edit button */}
+                {role==='admin' ? (
+                  <>
+                  <Button variant="primary" size="sm" onClick={() => onEditStudent(student)}>Edit</Button>
                   <Button variant="danger" size="sm" onClick={() => handleDelete(student._id)}>Delete</Button>
+                  </>
+                ):(
+                  <>
+                  <Button variant="danger" size="sm" onClick={() => onView(student._id)}>View</Button>
+                  </>
+                )} 
                 </td>
               </tr>
             ))}

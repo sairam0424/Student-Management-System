@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Button, Spinner, Alert } from 'react-bootstr
 import StudentList from './StudentList';
 import StudentForm from '../components/StudentForm';
 import { useStudentManagement } from '../customHooks/useStudentManagement';
-
+import { useLocation } from 'react-router-dom';
 function AdminDashboard() {
   const {
     students,
@@ -19,6 +19,14 @@ function AdminDashboard() {
     handleInputChange,
     handleSubmit
   } = useStudentManagement();
+
+  const location = useLocation();
+
+  const {role} = location.state || {}
+
+  // console.log("admin Dashboard",role)
+
+
 
   if (loading) return (
     <Container className="text-center mt-5">
@@ -51,12 +59,13 @@ function AdminDashboard() {
       </Row>
       <Row>
         <Col>
-          <StudentList students={students} onDeleteStudent={handleStudentDelete} onEditStudent={handleEditStudent} />
+          <StudentList role={role} students={students} onDeleteStudent={handleStudentDelete} onEditStudent={handleEditStudent} />
         </Col>
       </Row>
       <StudentForm 
         show={showForm} 
         handleClose={() => setShowForm(false)} 
+        role="admin"
         studentData={newStudent} 
         handleInputChange={handleInputChange} 
         handleSubmit={handleSubmit} 
