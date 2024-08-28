@@ -4,12 +4,13 @@ import typeDefs from "./schemaGql.js";
 import cors from 'cors'
 
 import mongoose from "mongoose";
-import { JWT_SECRET, MONGO_URL } from "./config.js";
+// import { JWT_SECRET, MONGO_URL } from "./config.js";
 
 import jwt from "jsonwebtoken";
-
+import dotenv from 'dotenv'
+dotenv.config()
 mongoose
-  .connect(MONGO_URL, {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -21,12 +22,13 @@ mongoose
 //import models here
 
 import "./models/UserModel.js";
+import "./models/StudentSchema.js"
 import resolvers from "./resolvers.js";
 const context = ({ req }) => {
   const { authorization } = req.headers;
 
   if (authorization) {
-    const { userId } = jwt.verify(authorization, JWT_SECRET);
+    const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
 
     return { userId };
   }

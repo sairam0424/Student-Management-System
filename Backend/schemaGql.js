@@ -1,9 +1,13 @@
 import { gql } from "apollo-server";
+
 const typeDefs = gql`
   type Query {
     users: [User]
     user(_id: ID!): User
+    students: [Student]
+    student(_id: ID!): Student
   }
+
   type User {
     _id: ID!
     firstName: String!
@@ -13,14 +17,27 @@ const typeDefs = gql`
     role: String!
   }
 
+  type Student {
+    _id: ID!
+    name: String!
+    age: Int!
+    email: String!
+    marks: Float!
+    attendance: Float!
+    image: String
+  }
+
   type Token {
     token: String
-    role:String
+    role: String
   }
 
   type Mutation {
     signupUser(userNew: UserInput!): User
-    signinUser(userSignin: UserSigninInput!): Token 
+    signinUser(userSignin: UserSigninInput!): Token
+    addStudent(studentNew: StudentInput!): Student
+    updateStudent(_id: ID!, studentUpdate: StudentUpdateInput!): Student
+    deleteStudent(_id: ID!): String
   }
 
   input UserInput {
@@ -30,12 +47,29 @@ const typeDefs = gql`
     password: String!
     role: String!
   }
+
   input UserSigninInput {
     email: String!
     password: String!
-    
+  }
+
+  input StudentInput {
+    name: String!
+    age: Int!
+    email: String!
+    marks: Float!
+    attendance: Float!
+    image: String
+  }
+
+  input StudentUpdateInput {
+    name: String!
+    age: Int!
+    email: String!
+    marks: Float!
+    attendance: Float!
+    image: String!
   }
 `;
-export default typeDefs;
 
-// if possible add the role in input UseSignInInput role:String
+export default typeDefs;
