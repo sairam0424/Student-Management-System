@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "./config.js";
+
 
 // Models
 const User = mongoose.model("User");
@@ -41,7 +41,7 @@ const resolvers = {
       if (!doMatch) {
         throw new Error("Email or password is invalid");
       }
-      const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET);
+      const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET);
       return { token, role: user.role };
     },
 

@@ -32,8 +32,8 @@ export const CREATE_STUDENT = gql`
 `;
 
 export const UPDATE_STUDENT = gql`
-  mutation UpdateStudent($id: ID!, $studentUpdate: StudentUpdateInput!) {
-    updateStudent(id: $id, studentUpdate: $studentUpdate) {
+  mutation UpdateStudent($_id: ID!, $studentUpdate: StudentUpdateInput!) {
+    updateStudent(_id: $_id, studentUpdate: $studentUpdate) {
       _id
       name
       age

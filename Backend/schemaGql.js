@@ -63,12 +63,12 @@ const typeDefs = gql`
   }
 
   input StudentUpdateInput {
-    name: String
-    age: Int
-    email: String
-    marks: Float
-    attendance: Float
-    image: String
+    name: String!
+    age: Int!
+    email: String!
+    marks: Float!
+    attendance: Float!
+    image: String!
   }
 `;
 

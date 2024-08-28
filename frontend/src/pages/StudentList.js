@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { DELETE_STUDENT } from '../gqlopertions/mutations';
 import { Card, Button, Table, Image } from 'react-bootstrap';
 
-function StudentList({ students, onDeleteStudent }) {
+function StudentList({ students, onDeleteStudent, onEditStudent }) { // Added onEditStudent as a prop
   const [deleteStudent] = useMutation(DELETE_STUDENT);
 
   const handleDelete = async (_id) => {
@@ -41,8 +41,8 @@ function StudentList({ students, onDeleteStudent }) {
                 <td>{student.attendance}</td>
                 <td><Image src={student.image} alt={student.name} style={{ width: '50px' }} roundedCircle /></td>
                 <td>
+                  <Button variant="primary" size="sm" onClick={() => onEditStudent(student)}>Edit</Button> {/* Edit button */}
                   <Button variant="danger" size="sm" onClick={() => handleDelete(student._id)}>Delete</Button>
-                  {/* Implement update functionality */}
                 </td>
               </tr>
             ))}
