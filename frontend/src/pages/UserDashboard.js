@@ -6,7 +6,7 @@ import SearchComponent from '../components/SearchComponents';
 import { useStudentManagement } from '../customHooks/useStudentManagement';
 import StudentForm from '../components/StudentForm'; // Import StudentForm if needed
 
-const UserDashboard = ({ role }) => {
+const UserDashboard = () => {
   const {
     students,
     loading,
@@ -23,6 +23,8 @@ const UserDashboard = ({ role }) => {
 
   const [searchText, setSearchText] = useState('');
   const [filteredStudents, setFilteredStudents] = useState([]);
+
+  const role = localStorage.getItem("role")
 
   // Effect to filter students based on search text
   useEffect(() => {

@@ -13,14 +13,17 @@ export default function Login() {
     const [signinUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
     if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
+    
     if (data) {
+        // Store the token and role in localStorage
         localStorage.setItem("token", data.user.token);
-        // console.log("Login role", data.user.role);
-        if (data.user.role === 'admin') {
-            navigate('/admindashboard',{state:{role:data.user.role}});
+        localStorage.setItem("role", data.user.role);  // Storing the role
 
+        // Navigate based on the user's role
+        if (data.user.role === 'admin') {
+            navigate('/admindashboard');
         } else {
-            navigate('/userdashboard', { state: { role: data.user.role } });
+            navigate('/userdashboard');
         }
     }
 

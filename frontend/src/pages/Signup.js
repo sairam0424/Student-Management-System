@@ -10,11 +10,16 @@ export default function Signup() {
         lastName: '',
         email: '',
         password: '',
-        role: 'user' // Default role
+        role: 'user'
     });
     const [signupUser, { data, loading, error }] = useMutation(SIGNUP_USER);
 
     if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
+
+    // Store role in localStorage if signup is successful
+    if (data && data.user) {
+        localStorage.setItem("role", data.user.role); // Store the role in localStorage
+    }
 
     const handleChange = (e) => {
         setFormData({

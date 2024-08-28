@@ -3,9 +3,12 @@ import { useMutation } from '@apollo/client';
 import { DELETE_STUDENT } from '../gqlopertions/mutations';
 import { Card, Button, Table, Image } from 'react-bootstrap';
 
-  function StudentList({ students, role,onView, onDeleteStudent, onEditStudent }) { // Added onEditStudent as a prop
+function StudentList({ students, onView, onDeleteStudent, onEditStudent }) {
   const [deleteStudent] = useMutation(DELETE_STUDENT);
-    // console.log("Student Role",role)
+
+  // Retrieve the role from localStorage
+  const role = localStorage.getItem("role");
+  
   const handleDelete = async (_id) => {
     try {
       await deleteStudent({ variables: { _id: _id } });
@@ -39,18 +42,42 @@ import { Card, Button, Table, Image } from 'react-bootstrap';
                 <td>{student.email}</td>
                 <td>{student.marks}</td>
                 <td>{student.attendance}</td>
-                <td><Image src={student.image} alt={student.name} style={{ width: '50px' }} roundedCircle /></td>
                 <td>
-                {role==='admin' ? (
-                  <>
-                  <Button variant="primary" size="sm" onClick={() => onEditStudent(student)}>Edit</Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(student._id)}>Delete</Button>
-                  </>
-                ):(
-                  <>
-                  <Button variant="danger" size="sm" onClick={() => onView(student._id)}>View</Button>
-                  </>
-                )} 
+                  <Image 
+                    src={student.image} 
+                    alt={student.name} 
+                    style={{ width: '50px' }} 
+                    roundedCircle 
+                  />
+                </td>
+                <td>
+                  {role === 'admin' ? (
+                    <>
+                      <Button 
+                        variant="primary" 
+                        size="sm" 
+                        onClick={() => onEditStudent(student)}
+                        className="me-2"
+                      >
+                        Edit
+                      </Button>
+                      <Button 
+                        variant="danger" 
+                        size="sm" 
+                        onClick={() => handleDelete(student._id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  ) : (
+                    <Button 
+                      variant="info" 
+                      size="sm" 
+                      onClick={() => onView(student._id)}
+                    >
+                      View
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}
