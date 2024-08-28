@@ -15,11 +15,12 @@ export default function Login() {
     if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
     if (data) {
         localStorage.setItem("token", data.user.token);
-        console.log("role", data.user.role);
+        // console.log("Login role", data.user.role);
         if (data.user.role === 'admin') {
-            navigate('/admindashboard');
+            navigate('/admindashboard',{state:{role:data.user.role}});
+
         } else {
-            navigate('/userdashboard');
+            navigate('/userdashboard', { state: { role: data.user.role } });
         }
     }
 
