@@ -1,7 +1,8 @@
 // components/UserDashboard.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Spinner, Alert, Button } from 'react-bootstrap';
 import StudentList from './StudentList'; // Reuse the StudentList component from AdminDashboard
+import SearchComponent from '../components/SearchComponents';
 import { useStudentManagement } from '../customHooks/useStudentManagement';
 import StudentForm from '../components/StudentForm'; // Import StudentForm if needed
 
@@ -19,7 +20,22 @@ const UserDashboard = ({ role }) => {
     handleInputChange,
     handleSubmit
   } = useStudentManagement();
-  // console.log("user dash",role)
+
+  const [searchText, setSearchText] = useState('');
+  const [filteredStudents, setFilteredStudents] = useState([]);
+
+  // Effect to filter students based on search text
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredStudents(students);
+    } else {
+      const filtered = students.filter(student =>
+        student.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredStudents(filtered);
+    }
+  }, [searchText, students]);
+
   if (loading) return (
     <Container className="text-center mt-5">
       <Spinner animation="border" variant="primary" />
@@ -52,9 +68,16 @@ const UserDashboard = ({ role }) => {
         </div>
       )}
 
+      {/* Search Component */}
+      <SearchComponent 
+        searchText={searchText} 
+        setSearchText={setSearchText} 
+        onSearch={() => setSearchText(searchText)} 
+      />
+
       {/* Pass a prop to indicate whether the user can edit/delete */}
       <StudentList
-        students={students}
+        students={filteredStudents}
         role={role}
         onDeleteStudent={role === 'admin' ? handleStudentDelete : () => {}} 
         onEditStudent={role === 'admin' ? handleEditStudent : () => {}}  

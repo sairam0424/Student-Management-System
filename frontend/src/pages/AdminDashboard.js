@@ -1,10 +1,12 @@
 // components/AdminDashboard.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert } from 'react-bootstrap';
 import StudentList from './StudentList';
 import StudentForm from '../components/StudentForm';
+import SearchComponent from '../components/SearchComponents';
 import { useStudentManagement } from '../customHooks/useStudentManagement';
 import { useLocation } from 'react-router-dom';
+
 function AdminDashboard() {
   const {
     students,
@@ -21,12 +23,22 @@ function AdminDashboard() {
   } = useStudentManagement();
 
   const location = useLocation();
+  const { role } = location.state || {};
 
-  const {role} = location.state || {}
+  const [searchText, setSearchText] = useState('');
+  const [filteredStudents, setFilteredStudents] = useState([]);
 
-  // console.log("admin Dashboard",role)
-
-
+  // Effect to filter students based on search text
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredStudents(students);
+    } else {
+      const filtered = students.filter(student =>
+        student.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredStudents(filtered);
+    }
+  }, [searchText, students]);
 
   if (loading) return (
     <Container className="text-center mt-5">
@@ -57,9 +69,26 @@ function AdminDashboard() {
           </Card>
         </Col>
       </Row>
+      
+      {/* Search Component */}
+      <Row className="mb-4">
+        <Col>
+          <SearchComponent 
+            searchText={searchText} 
+            setSearchText={setSearchText} 
+            onSearch={() => setSearchText(searchText)} 
+          />
+        </Col>
+      </Row>
+
       <Row>
         <Col>
-          <StudentList role={role} students={students} onDeleteStudent={handleStudentDelete} onEditStudent={handleEditStudent} />
+          <StudentList 
+            role={role} 
+            students={filteredStudents} 
+            onDeleteStudent={handleStudentDelete} 
+            onEditStudent={handleEditStudent} 
+          />
         </Col>
       </Row>
       <StudentForm 
