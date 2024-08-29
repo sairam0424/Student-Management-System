@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
+import { UserProvider } from './customHooks/UserContext';
 import {
   ApolloClient,
   InMemoryCache,
@@ -19,7 +20,9 @@ root.render(
   <React.StrictMode>
   <BrowserRouter>
   <ApolloProvider client={client}>
+  <UserProvider>
     <App />
+    </UserProvider>
     </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>

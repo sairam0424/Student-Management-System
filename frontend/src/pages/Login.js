@@ -3,22 +3,24 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../gqlopertions/mutations';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
-
+import { useUser } from '../customHooks/UserContext';
 export default function Login() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    const {setUser} = useUser()
     const [signinUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
     if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
     
     if (data) {
+        const {token,role}  = data.user
         // Store the token and role in localStorage
         localStorage.setItem("token", data.user.token);
         localStorage.setItem("role", data.user.role);  // Storing the role
-
+        setUser({role})
         // Navigate based on the user's role
         if (data.user.role === 'admin') {
             navigate('/admindashboard');

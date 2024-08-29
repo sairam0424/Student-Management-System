@@ -4,15 +4,17 @@ import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-
+import ProtectedRoute from "./components/ProtectedRoutes";
 export const routes = [
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
-  {
-    path: "/signup",
-    element: <Signup />,
+  { path: "/signup", element: <Signup /> },
+  { 
+    path: "/userdashboard", 
+    element: <ProtectedRoute element={UserDashboard} allowedRoles={['user']} /> 
   },
-//   { path: "/dashboard", element: <Dashboard /> },
-{path:'/userdashboard',element:<UserDashboard/>},
-{path:'/admindashboard',element:<AdminDashboard/>}
+  { 
+    path: "/admindashboard", 
+    element: <ProtectedRoute element={AdminDashboard} allowedRoles={['admin']} /> 
+  },
 ];
