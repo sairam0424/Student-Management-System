@@ -29,7 +29,8 @@ const UserDashboard = () => {
   const [showProfile, setShowProfile] = useState(false);
 
   const { data, loading, error } = useQuery(GET_STUDENTS);
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem("role");
+
   useEffect(() => {
     if (searchText === '') {
       setFilteredStudents(students);
@@ -76,11 +77,14 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-3xl font-bold text-center mb-4">User Dashboard</h1>
       
-      <div className="text-center mb-4">
-        <Button variant="primary" onClick={() => setShowForm(true)}>
-          Add New Student
-        </Button>
-      </div>
+      {/* Conditionally render the "Add New Student" button only for admin */}
+      {role === 'admin' && (
+        <div className="text-center mb-4">
+          <Button variant="primary" onClick={() => setShowForm(true)}>
+            Add New Student
+          </Button>
+        </div>
+      )}
 
       <SearchComponent 
         searchText={searchText} 
@@ -96,6 +100,7 @@ const UserDashboard = () => {
         onEditStudent={role === 'admin' ? handleEditStudent : () => {}}  
       />
 
+      {/* Conditionally render the StudentForm only for admin */}
       {role === 'admin' && (
         <StudentForm
           show={showForm}
