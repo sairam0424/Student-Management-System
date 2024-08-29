@@ -1,20 +1,18 @@
-import React from 'react';
-import { useMutation } from '@apollo/client';
-import { DELETE_STUDENT } from '../gqlopertions/mutations';
-import { Card, Button, Table, Image } from 'react-bootstrap';
+import React from "react";
+import { useMutation } from "@apollo/client";
+import { DELETE_STUDENT } from "../gqlopertions/mutations";
+import { Card, Button, Table, Image } from "react-bootstrap";
 
 function StudentList({ students, onView, onDeleteStudent, onEditStudent }) {
   const [deleteStudent] = useMutation(DELETE_STUDENT);
+  const role = localStorage.getItem("role")
 
-  // Retrieve the role from localStorage
-  const role = localStorage.getItem("role");
-  
   const handleDelete = async (_id) => {
     try {
       await deleteStudent({ variables: { _id: _id } });
-      onDeleteStudent(_id); // Call the function passed from parent to update the list
+      onDeleteStudent(_id);
     } catch (error) {
-      console.error('Error deleting student:', error);
+      console.error("Error deleting student:", error);
     }
   };
 
@@ -35,7 +33,7 @@ function StudentList({ students, onView, onDeleteStudent, onEditStudent }) {
             </tr>
           </thead>
           <tbody>
-            {students.map(student => (
+            {students.map((student) => (
               <tr key={student._id}>
                 <td>{student.name}</td>
                 <td>{student.age}</td>
@@ -43,36 +41,36 @@ function StudentList({ students, onView, onDeleteStudent, onEditStudent }) {
                 <td>{student.marks}</td>
                 <td>{student.attendance}</td>
                 <td>
-                  <Image 
-                    src={student.image} 
-                    alt={student.name} 
-                    style={{ width: '50px' }} 
-                    roundedCircle 
+                  <Image
+                    src={student.image}
+                    alt={student.name}
+                    style={{ width: "50px" }}
+                    roundedCircle
                   />
                 </td>
                 <td>
-                  {role === 'admin' ? (
+                  {role === "admin" ? (
                     <>
-                      <Button 
-                        variant="primary" 
-                        size="sm" 
+                      <Button
+                        variant="primary"
+                        size="sm"
                         onClick={() => onEditStudent(student)}
                         className="me-2"
                       >
                         Edit
                       </Button>
-                      <Button 
-                        variant="danger" 
-                        size="sm" 
+                      <Button
+                        variant="danger"
+                        size="sm"
                         onClick={() => handleDelete(student._id)}
                       >
                         Delete
                       </Button>
                     </>
                   ) : (
-                    <Button 
-                      variant="info" 
-                      size="sm" 
+                    <Button
+                      variant="info"
+                      size="sm"
                       onClick={() => onView(student._id)}
                     >
                       View
