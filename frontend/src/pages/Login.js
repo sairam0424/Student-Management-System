@@ -4,6 +4,7 @@ import { LOGIN_USER } from '../gqlopertions/mutations';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useUser } from '../customHooks/UserContext';
+import Shimmer from '../components/Shimmer';
 export default function Login() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ export default function Login() {
     const {setUser} = useUser()
     const [signinUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
-    if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
+    if (loading) return <Shimmer/>;
     
     if (data) {
         const {token,role}  = data.user

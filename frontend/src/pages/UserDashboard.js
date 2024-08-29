@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Spinner, Alert, Button } from 'react-bootstrap';
-import StudentList from './StudentList';
-import SearchComponent from '../components/SearchComponents';
-import { useStudentManagement } from '../customHooks/useStudentManagement';
-import StudentForm from '../components/StudentForm';
-import StudentProfile from '../components/StudentProfile'; 
-import { useQuery } from '@apollo/client';
-import { GET_STUDENTS } from '../gqlopertions/mutations';
+import React, { useState, useEffect } from "react";
+import { Container, Spinner, Alert, Button } from "react-bootstrap";
+import StudentList from "./StudentList";
+import SearchComponent from "../components/SearchComponents";
+import { useStudentManagement } from "../customHooks/useStudentManagement";
+import StudentForm from "../components/StudentForm";
+import StudentProfile from "../components/StudentProfile";
+import { useQuery } from "@apollo/client";
+import { GET_STUDENTS } from "../gqlopertions/mutations";
 
 const UserDashboard = () => {
   const {
@@ -20,10 +20,10 @@ const UserDashboard = () => {
     handleStudentDelete,
     handleEditStudent,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
   } = useStudentManagement();
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
@@ -32,10 +32,10 @@ const UserDashboard = () => {
   const role = localStorage.getItem("role");
 
   useEffect(() => {
-    if (searchText === '') {
+    if (searchText === "") {
       setFilteredStudents(students);
     } else {
-      const filtered = students.filter(student =>
+      const filtered = students.filter((student) =>
         student.name.toLowerCase().includes(searchText.toLowerCase())
       );
       setFilteredStudents(filtered);
@@ -48,22 +48,26 @@ const UserDashboard = () => {
     }
   }, [data]);
 
-  if (studentsLoading || loading) return (
-    <Container className="text-center mt-5">
-      <Spinner animation="border" variant="primary" />
-    </Container>
-  );
+  if (studentsLoading || loading)
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+      </Container>
+    );
 
-  if (studentsError || error) return (
-    <Container className="text-center mt-5">
-      <Alert variant="danger">
-        Error: {studentsError?.message || error?.message}
-      </Alert>
-    </Container>
-  );
+  if (studentsError || error)
+    return (
+      <Container className="text-center mt-5">
+        <Alert variant="danger">
+          Error: {studentsError?.message || error?.message}
+        </Alert>
+      </Container>
+    );
 
   const handleViewProfile = (studentId) => {
-    const student = filteredStudents.find(student => student._id === studentId);
+    const student = filteredStudents.find(
+      (student) => student._id === studentId
+    );
     setSelectedStudent(student);
     setShowProfile(true);
   };
@@ -76,9 +80,9 @@ const UserDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-3xl font-bold text-center mb-4">User Dashboard</h1>
-      
+
       {/* Conditionally render the "Add New Student" button only for admin */}
-      {role === 'admin' && (
+      {role === "admin" && (
         <div className="text-center mb-4">
           <Button variant="primary" onClick={() => setShowForm(true)}>
             Add New Student
@@ -86,22 +90,22 @@ const UserDashboard = () => {
         </div>
       )}
 
-      <SearchComponent 
-        searchText={searchText} 
-        setSearchText={setSearchText} 
-        onSearch={() => setSearchText(searchText)} 
+      <SearchComponent
+        searchText={searchText}
+        setSearchText={setSearchText}
+        onSearch={() => setSearchText(searchText)}
       />
 
       <StudentList
         students={filteredStudents}
         role={role}
         onView={handleViewProfile}
-        onDeleteStudent={role === 'admin' ? handleStudentDelete : () => {}} 
-        onEditStudent={role === 'admin' ? handleEditStudent : () => {}}  
+        onDeleteStudent={role === "admin" ? handleStudentDelete : () => {}}
+        onEditStudent={role === "admin" ? handleEditStudent : () => {}}
       />
 
       {/* Conditionally render the StudentForm only for admin */}
-      {role === 'admin' && (
+      {role === "admin" && (
         <StudentForm
           show={showForm}
           handleClose={() => setShowForm(false)}
@@ -121,6 +125,6 @@ const UserDashboard = () => {
       )}
     </div>
   );
-}
+};
 
 export default UserDashboard;
