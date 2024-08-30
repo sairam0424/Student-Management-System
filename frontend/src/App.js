@@ -1,19 +1,15 @@
-import React from "react";
-// import Login from './pages/Login'
-// import Signup from './pages/Signup'
+import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import NavBar from "./components/Navbar";
-// import Home from "./pages/Home";
-import { useRoutes } from "react-router-dom";
-import { routes } from "./routes";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { routes } from "./routes"; // Ensure routes is defined correctly
 
 function App() {
   const element = useRoutes(routes);
+
   return (
-    <div>
+    <>
       <NavBar />
       {element}
-    </div>
+    </>
   );
 }
 
