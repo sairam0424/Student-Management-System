@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { SIGNUP_USER } from '../gqlopertions/mutations';
@@ -16,13 +16,29 @@ export default function Signup() {
         role: 'user'
     });
     const [signupUser, { data, loading, error }] = useMutation(SIGNUP_USER);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    if (loading) return <div className="text-center mt-5"><h1>Loading...</h1></div>;
+    useEffect(() => {
+        // Handle GraphQL error
+        if (error) {
+            if (error.message.includes('already exists')) {
+                setErrorMessage('An account with this email already exists. Please try logging in.');
+            } else {
+                setErrorMessage('An unexpected error occurred. Please try again later.');
+            }
+        } else {
+            // Clear error message if no error
+            setErrorMessage('');
+        }
+    }, [error]);
 
-    // Store role in localStorage if signup is successful
-    if (data && data.user) {
-        localStorage.setItem("role", data.user.role); // Store the role in localStorage
-    }
+    useEffect(() => {
+        // Handle successful signup
+        if (data && data.user) {
+            localStorage.setItem("role", data.user.role); // Store the role in localStorage
+            setErrorMessage(''); // Clear error message on success
+        }
+    }, [data]);
 
     const handleChange = (e) => {
         setFormData({
@@ -43,6 +59,13 @@ export default function Signup() {
         signupUser({
             variables: {
                 userNew: formData
+            }
+        }).catch((err) => {
+            // Catch and handle any additional errors from the mutation
+            if (err.message.includes('already exists')) {
+                setErrorMessage('An account with this email already exists. Please try logging in.');
+            } else {
+                setErrorMessage('An unexpected error occurred. Please try again later.');
             }
         });
     };
@@ -65,9 +88,15 @@ export default function Signup() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        {error && <Alert variant="danger">{error.message}</Alert>}
+                        {errorMessage && (
+                            <Alert variant="danger" className="mb-4">
+                                {errorMessage}
+                            </Alert>
+                        )}
                         {data && data.user && (
-                            <Alert variant="success">{data.user.firstName} is signed up. You can login now!</Alert>
+                            <Alert variant="success" className="mb-4">
+                                {data.user.firstName} is signed up. You can login now!
+                            </Alert>
                         )}
                         <h3 className="text-center mb-4">Signup</h3>
                         <Form onSubmit={handleSubmit}>
