@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../gqlopertions/mutations';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { useUser } from '../customHooks/UserContext';
 import { Helmet } from 'react-helmet';
@@ -56,68 +56,58 @@ export default function Login() {
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://yourappname.com/login" />
             </Helmet>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="d-flex flex-column align-items-center p-4 shadow-lg bg-white rounded"
-                style={{ maxWidth: '500px', width: '90%', padding: '2rem' }}  // Enhanced responsiveness
-            >
-                {error && (
+            <Row className="w-100 justify-content-center">
+                <Col md={8} lg={6} xl={4} className="p-4 bg-white rounded shadow-sm">
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="mb-4 w-100"
                     >
-                        <Alert variant="danger" className="text-center">{error.message}</Alert>
+                        {error && (
+                            <Alert variant="danger" className="mb-4">
+                                {error.message}
+                            </Alert>
+                        )}
+                        <h3 className="text-center mb-4">Login</h3>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="formEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter email"
+                                    name="email"
+                                    onChange={handleChange}
+                                    required
+                                    className="rounded-pill border-0 shadow-sm"
+                                />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    onChange={handleChange}
+                                    required
+                                    className="rounded-pill border-0 shadow-sm"
+                                />
+                            </Form.Group>
+
+                            <Button 
+                                variant="primary" 
+                                type="submit" 
+                                className="w-100 mt-3 rounded-pill shadow-sm"
+                                as={motion.button}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                Login
+                            </Button>
+                        </Form>
                     </motion.div>
-                )}
-                <h3 className="text-center mb-4">Login</h3>
-                <motion.div
-                    initial={{ scale: 0.98 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-100"
-                >
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                name="email"
-                                onChange={handleChange}
-                                required
-                                className="rounded-pill border-0 shadow-sm"
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                onChange={handleChange}
-                                required
-                                className="rounded-pill border-0 shadow-sm"
-                            />
-                        </Form.Group>
-
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className="w-100 mt-3 rounded-pill shadow-sm"
-                            as={motion.button}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Login
-                        </Button>
-                    </Form>
-                </motion.div>
-            </motion.div>
+                </Col>
+            </Row>
         </Container>
     );
 }
