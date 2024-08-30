@@ -7,6 +7,7 @@ import {
   BoxArrowRight,
   BoxArrowInRight,
 } from "react-bootstrap-icons";
+import { FaHome } from "react-icons/fa"; // Importing react-icons
 
 export default function NavBar() {
   const token = localStorage.getItem("token");
@@ -22,6 +23,7 @@ export default function NavBar() {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
+          <FaHome className="me-2" /> {/* Adding home icon */}
           Home SMS
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
