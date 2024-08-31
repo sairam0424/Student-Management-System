@@ -81,7 +81,6 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-3xl font-bold text-center mb-4">User Dashboard</h1>
 
-      {/* Conditionally render the "Add New Student" button only for admin */}
       {role === "admin" && (
         <div className="text-center mb-4">
           <Button variant="primary" onClick={() => setShowForm(true)}>
@@ -104,7 +103,6 @@ const UserDashboard = () => {
         onEditStudent={role === "admin" ? handleEditStudent : () => {}}
       />
 
-      {/* Conditionally render the StudentForm only for admin */}
       {role === "admin" && (
         <StudentForm
           show={showForm}

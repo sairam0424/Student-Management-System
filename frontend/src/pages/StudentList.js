@@ -5,7 +5,7 @@ import { Card, Button, Table, Image } from "react-bootstrap";
 
 function StudentList({ students, onView, onDeleteStudent, onEditStudent }) {
   const [deleteStudent] = useMutation(DELETE_STUDENT);
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem("role");
 
   const handleDelete = async (_id) => {
     try {

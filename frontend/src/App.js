@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import NavBar from "./components/Navbar";
-import { routes } from "./routes"; // Ensure routes is defined correctly
+import { routes } from "./routes";
 
 function App() {
   const element = useRoutes(routes);

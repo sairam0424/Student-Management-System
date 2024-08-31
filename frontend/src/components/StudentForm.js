@@ -1,22 +1,38 @@
-// components/StudentForm.js
-import React from 'react';
-import { Modal, Form, Button, InputGroup } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import { PersonFill, EnvelopeFill, ImageFill, Hash, Percent } from 'react-bootstrap-icons';
 
-function StudentForm({ show, handleClose, studentData, handleInputChange, handleSubmit, isEditing }) {
+import React from "react";
+import { Modal, Form, Button, InputGroup } from "react-bootstrap";
+import { motion } from "framer-motion";
+import {
+  PersonFill,
+  EnvelopeFill,
+  ImageFill,
+  Hash,
+  Percent,
+} from "react-bootstrap-icons";
+
+function StudentForm({
+  show,
+  handleClose,
+  studentData,
+  handleInputChange,
+  handleSubmit,
+  isEditing,
+}) {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{isEditing ? 'Update Student' : 'Add New Student'}</Modal.Title>
+        <Modal.Title>
+          {isEditing ? "Update Student" : "Add New Student"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          {/* Name Field */}
           <Form.Group controlId="formName" className="mb-3">
             <Form.Label>Name</Form.Label>
             <InputGroup>
-              <InputGroup.Text><PersonFill /></InputGroup.Text>
+              <InputGroup.Text>
+                <PersonFill />
+              </InputGroup.Text>
               <Form.Control
                 type="text"
                 placeholder="Enter student name"
@@ -28,11 +44,12 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Age Field */}
           <Form.Group controlId="formAge" className="mb-3">
             <Form.Label>Age</Form.Label>
             <InputGroup>
-              <InputGroup.Text><Hash /></InputGroup.Text>
+              <InputGroup.Text>
+                <Hash />
+              </InputGroup.Text>
               <Form.Control
                 type="number"
                 placeholder="Enter student age"
@@ -44,11 +61,12 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Email Field */}
           <Form.Group controlId="formEmail" className="mb-3">
             <Form.Label>Email</Form.Label>
             <InputGroup>
-              <InputGroup.Text><EnvelopeFill /></InputGroup.Text>
+              <InputGroup.Text>
+                <EnvelopeFill />
+              </InputGroup.Text>
               <Form.Control
                 type="email"
                 placeholder="Enter student email"
@@ -60,11 +78,12 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Marks Field */}
           <Form.Group controlId="formMarks" className="mb-3">
             <Form.Label>Marks</Form.Label>
             <InputGroup>
-              <InputGroup.Text><Hash /></InputGroup.Text>
+              <InputGroup.Text>
+                <Hash />
+              </InputGroup.Text>
               <Form.Control
                 type="number"
                 placeholder="Enter student marks"
@@ -76,11 +95,12 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Attendance Field */}
           <Form.Group controlId="formAttendance" className="mb-3">
             <Form.Label>Attendance</Form.Label>
             <InputGroup>
-              <InputGroup.Text><Percent /></InputGroup.Text>
+              <InputGroup.Text>
+                <Percent />
+              </InputGroup.Text>
               <Form.Control
                 type="number"
                 placeholder="Enter attendance percentage"
@@ -92,11 +112,12 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Image URL Field */}
           <Form.Group controlId="formImage" className="mb-3">
             <Form.Label>Image URL</Form.Label>
             <InputGroup>
-              <InputGroup.Text><ImageFill /></InputGroup.Text>
+              <InputGroup.Text>
+                <ImageFill />
+              </InputGroup.Text>
               <Form.Control
                 type="text"
                 placeholder="Enter image URL"
@@ -107,16 +128,15 @@ function StudentForm({ show, handleClose, studentData, handleInputChange, handle
             </InputGroup>
           </Form.Group>
 
-          {/* Submit Button with Framer Motion */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Button variant="primary" type="submit" className="w-100">
-              {isEditing ? 'Update Student' : 'Add Student'}
+              {isEditing ? "Update Student" : "Add Student"}
             </Button>
           </motion.div>
         </Form>
