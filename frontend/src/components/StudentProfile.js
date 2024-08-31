@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Card, Row, Col, Image } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 import {
   PersonFill,
   EnvelopeFill,
@@ -28,124 +29,151 @@ const detailVariants = {
 };
 
 const StudentProfile = ({ show, handleClose, student }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true); // Default to dark mode
+
+  useEffect(() => {
+    // Optionally, you could check the user's preference from localStorage or another source
+  }, []);
 
   if (!student) return null;
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const cardStyle = darkMode ? "bg-dark text-white" : "bg-light text-dark";
+  const cardStyle = darkMode
+    ? "bg-dark text-white"
+    : "bg-light text-dark";
   const headerStyle = darkMode
-    ? "bg-secondary text-white"
-    : "bg-primary text-white";
+    ? "bg-gradient text-white"
+    : "bg-gradient-light text-dark";
   const buttonVariant = darkMode ? "outline-light" : "outline-dark";
+  const buttonHoverStyle = darkMode
+    ? { backgroundColor: "#ffffff", color: "#000000" }
+    : { backgroundColor: "#000000", color: "#ffffff" };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" centered>
-      <motion.div
-        variants={modalVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
-        <Card className={`border-0 shadow ${cardStyle}`}>
-          <Card.Header
-            className={`d-flex align-items-center justify-content-between ${headerStyle}`}
-          >
-            <motion.h5
-              className="mb-0"
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+    <>
+      <Helmet>
+        <title>{student.name}'s Profile | Your App Name</title>
+        <meta name="description" content={`Profile of ${student.name}.`} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        <motion.div
+          variants={modalVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <Card className={`border-0 shadow ${cardStyle}`}>
+            <Card.Header
+              className={`d-flex align-items-center justify-content-between ${headerStyle}`}
+              style={{
+                background: "linear-gradient(135deg, #000000, #C0C0C0)", // Gradient header
+              }}
             >
-              {student.name}'s Profile
-            </motion.h5>
-            <div>
-              <Button
-                variant={buttonVariant}
-                onClick={toggleDarkMode}
-                className="me-2"
+              <motion.h5
+                className="mb-0"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                {darkMode ? <SunFill /> : <MoonFill />}
-              </Button>
-              <Button variant={buttonVariant} onClick={handleClose}>
-                Close
-              </Button>
-            </div>
-          </Card.Header>
-          <Card.Body>
-            <motion.div
-              className="text-center mb-4"
-              variants={imageVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <Image
-                src={student.image}
-                alt={student.name}
-                roundedCircle
-                style={{
-                  width: "150px",
-                  border: `3px solid ${darkMode ? "#6c757d" : "#007bff"}`,
-                }}
-              />
-            </motion.div>
-            <motion.div
-              variants={detailVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <Row className="mb-3">
-                <Col md={6}>
-                  <p>
-                    <PersonFill className="me-2" />
-                    <strong>Name:</strong> {student.name}
-                  </p>
-                </Col>
-                <Col md={6}>
-                  <p>
-                    <Hash className="me-2" />
-                    <strong>Age:</strong> {student.age}
-                  </p>
-                </Col>
-              </Row>
-              <Row className="mb-3">
-                <Col md={6}>
-                  <p>
-                    <EnvelopeFill className="me-2" />
-                    <strong>Email:</strong> {student.email}
-                  </p>
-                </Col>
-                <Col md={6}>
-                  <p>
-                    <CardChecklist className="me-2" />
-                    <strong>Marks:</strong> {student.marks}
-                  </p>
-                </Col>
-              </Row>
-              <Row className="mb-3">
-                <Col md={6}>
-                  <p>
-                    <Percent className="me-2" />
-                    <strong>Attendance:</strong> {student.attendance}%
-                  </p>
-                </Col>
-              </Row>
-            </motion.div>
-          </Card.Body>
-          <Card.Footer className={`text-center ${cardStyle}`}>
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Button
-                variant={darkMode ? "light" : "primary"}
-                onClick={handleClose}
+                {student.name}'s Profile
+              </motion.h5>
+              <div>
+                <Button
+                  variant={buttonVariant}
+                  onClick={toggleDarkMode}
+                  className="me-2"
+                >
+                  {darkMode ? <SunFill /> : <MoonFill />}
+                </Button>
+                <Button variant={buttonVariant} onClick={handleClose}>
+                  Close
+                </Button>
+              </div>
+            </Card.Header>
+            <Card.Body>
+              <motion.div
+                className="text-center mb-4"
+                variants={imageVariants}
+                initial="hidden"
+                animate="visible"
               >
-                Close
-              </Button>
-            </motion.div>
-          </Card.Footer>
-        </Card>
-      </motion.div>
-    </Modal>
+                <Image
+                  src={student.image}
+                  alt={student.name}
+                  roundedCircle
+                  style={{
+                    width: "150px",
+                    border: `3px solid ${darkMode ? "#6c757d" : "#007bff"}`,
+                  }}
+                />
+              </motion.div>
+              <motion.div
+                variants={detailVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <Row className="mb-3">
+                  <Col md={6}>
+                    <p>
+                      <PersonFill className="me-2" />
+                      <strong>Name:</strong> {student.name}
+                    </p>
+                  </Col>
+                  <Col md={6}>
+                    <p>
+                      <Hash className="me-2" />
+                      <strong>Age:</strong> {student.age}
+                    </p>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col md={6}>
+                    <p>
+                      <EnvelopeFill className="me-2" />
+                      <strong>Email:</strong> {student.email}
+                    </p>
+                  </Col>
+                  <Col md={6}>
+                    <p>
+                      <CardChecklist className="me-2" />
+                      <strong>Marks:</strong> {student.marks}
+                    </p>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col md={6}>
+                    <p>
+                      <Percent className="me-2" />
+                      <strong>Attendance:</strong> {student.attendance}%
+                    </p>
+                  </Col>
+                </Row>
+              </motion.div>
+            </Card.Body>
+            <Card.Footer
+              className={`text-center ${cardStyle}`}
+              style={{
+                background: "linear-gradient(135deg, #000000, #C0C0C0)", // Gradient footer
+              }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, ...buttonHoverStyle }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant={darkMode ? "light" : "primary"}
+                  onClick={handleClose}
+                >
+                  Close
+                </Button>
+              </motion.div>
+            </Card.Footer>
+          </Card>
+        </motion.div>
+      </Modal>
+    </>
   );
 };
 
