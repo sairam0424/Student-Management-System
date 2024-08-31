@@ -158,17 +158,7 @@ const StudentProfile = ({ show, handleClose, student }) => {
                 background: "linear-gradient(135deg, #000000, #C0C0C0)", // Gradient footer
               }}
             >
-              <motion.div
-                whileHover={{ scale: 1.1, ...buttonHoverStyle }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant={darkMode ? "light" : "primary"}
-                  onClick={handleClose}
-                >
-                  Close
-                </Button>
-              </motion.div>
+              {/* Removed the redundant Close button */}
             </Card.Footer>
           </Card>
         </motion.div>
