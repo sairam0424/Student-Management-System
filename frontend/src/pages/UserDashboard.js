@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Spinner, Alert, Button } from "react-bootstrap";
+import { motion } from "framer-motion";
 import StudentList from "./StudentList";
 import SearchComponent from "../components/SearchComponents";
 import { useStudentManagement } from "../customHooks/useStudentManagement";
@@ -78,22 +79,60 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-3xl font-bold text-center mb-4">User Dashboard</h1>
+    <div
+      style={{
+        background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+        minHeight: '100vh',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1.5rem',
+        }}
+      >
+        {role === "admin" && (
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              variant="primary"
+              onClick={() => setShowForm(true)}
+              style={{
+                background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+                border: 'none',
+                color: '#ffffff',
+              }}
+            >
+              Add New Student
+            </Button>
+          </motion.div>
+        )}
 
-      {role === "admin" && (
-        <div className="text-center mb-4">
-          <Button variant="primary" onClick={() => setShowForm(true)}>
-            Add New Student
-          </Button>
+        <motion.h1
+          className="text-3xl font-bold text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{ flexGrow: 1, textAlign: 'center', color: '#ffffff' }}  // Updated color to white
+        >
+          User Dashboard
+        </motion.h1>
+
+        <div style={{ marginTop: '1rem' }}>
+          <SearchComponent
+            searchText={searchText}
+            setSearchText={setSearchText}
+            onSearch={() => setSearchText(searchText)}
+          />
         </div>
-      )}
-
-      <SearchComponent
-        searchText={searchText}
-        setSearchText={setSearchText}
-        onSearch={() => setSearchText(searchText)}
-      />
+      </div>
 
       <StudentList
         students={filteredStudents}
