@@ -70,7 +70,9 @@ function AdminDashboard() {
           >
             <Card className="shadow-sm">
               <Card.Body className="d-flex flex-column align-items-center">
-                <Card.Title className="text-center mb-4">Admin Dashboard</Card.Title>
+                <Card.Title className="text-center mb-4">
+                  Admin Dashboard
+                </Card.Title>
                 <Card.Subtitle className="mb-3 text-muted text-center">
                   Total Students: {students.length}
                 </Card.Subtitle>

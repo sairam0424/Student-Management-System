@@ -1,13 +1,10 @@
-import { quotes, users } from "./fakedb.js";
-import { randomBytes } from "crypto";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-
 // Models
 const User = mongoose.model("User");
-const Student = mongoose.model("Student"); // Make sure Student model is defined in your models
+const Student = mongoose.model("Student");
 
 const resolvers = {
   Query: {
@@ -41,7 +38,10 @@ const resolvers = {
       if (!doMatch) {
         throw new Error("Email or password is invalid");
       }
-      const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { userId: user._id, role: user.role },
+        process.env.JWT_SECRET
+      );
       return { token, role: user.role };
     },
 
@@ -55,8 +55,8 @@ const resolvers = {
 
     updateStudent: async (_, { _id, studentUpdate }) => {
       const student = await Student.findByIdAndUpdate(_id, studentUpdate, {
-        new: true, // returns the updated document
-        runValidators: true, // validate the updated fields
+        new: true,
+        runValidators: true,
       });
       if (!student) {
         throw new Error("Student not found");

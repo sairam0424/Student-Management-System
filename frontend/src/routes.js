@@ -9,12 +9,14 @@ export const routes = [
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
-  { 
-    path: "/userdashboard", 
-    element: <ProtectedRoute element={UserDashboard} allowedRoles={['user']} /> 
+  {
+    path: "/userdashboard",
+    element: <ProtectedRoute element={UserDashboard} allowedRoles={["user"]} />,
   },
-  { 
-    path: "/admindashboard", 
-    element: <ProtectedRoute element={AdminDashboard} allowedRoles={['admin']} /> 
+  {
+    path: "/admindashboard",
+    element: (
+      <ProtectedRoute element={AdminDashboard} allowedRoles={["admin"]} />
+    ),
   },
 ];

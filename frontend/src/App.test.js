@@ -25,12 +25,8 @@ test("renders stiudent mgmt ", () => {
 
   // Check if the message is updated
   //expect(screen.getByText(/email address/i)).toBeInTheDocument();
-   fireEvent.click(screen.getByText('Login'))
- // expect(screen.getByText(/Login/i)).toBeInTheDocument();
-
-
-
-
+  fireEvent.click(screen.getByText("Login"));
+  // expect(screen.getByText(/Login/i)).toBeInTheDocument();
 
   // expect(screen.getByText(/Login/i)).toBeInTheDocument();
 });

@@ -1,8 +1,8 @@
 // components/SearchComponent.js
-import React from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import { Search } from 'react-bootstrap-icons';
+import React from "react";
+import { Form, Button, InputGroup } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { Search } from "react-bootstrap-icons";
 
 // Animation variants for button
 const buttonVariants = {
@@ -13,7 +13,6 @@ const buttonVariants = {
 function SearchComponent({ searchText, setSearchText, onSearch }) {
   return (
     <div className="mb-4">
-      {/* InputGroup with inline styling for better alignment */}
       <InputGroup className="shadow-sm">
         <InputGroup.Text className="bg-primary text-white">
           <Search />
@@ -24,7 +23,7 @@ function SearchComponent({ searchText, setSearchText, onSearch }) {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="shadow-sm"
-          style={{ borderRadius: '0 5px 5px 0' }} // Rounded only on right side
+          style={{ borderRadius: "0 5px 5px 0" }}
         />
         <motion.div
           variants={buttonVariants}
@@ -35,8 +34,8 @@ function SearchComponent({ searchText, setSearchText, onSearch }) {
           <Button
             variant="primary"
             onClick={onSearch}
-            className="shadow-sm ms-2" // Margin for spacing
-            style={{ borderRadius: '5px' }} // Rounded corners for the button
+            className="shadow-sm ms-2"
+            style={{ borderRadius: "5px" }}
           >
             Search
           </Button>
