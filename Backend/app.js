@@ -18,15 +18,7 @@ mongoose
 import "./models/UserModel.js";
 import "./models/StudentSchema.js";
 import resolvers from "./resolvers/resolvers.js";
-const context = ({ req }) => {
-  const { authorization } = req.headers;
-
-  if (authorization) {
-    const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
-
-    return { userId };
-  }
-};
+import context from "./Middlewares/jwtauthentication.js";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
