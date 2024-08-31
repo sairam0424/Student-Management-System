@@ -88,7 +88,8 @@ export default function Signup() {
   return (
     <Container
       fluid
-      className="d-flex align-items-center justify-content-center min-vh-100 bg-light"
+      className="d-flex align-items-center justify-content-center min-vh-100"
+      style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }}
     >
       <Helmet>
         <title>Signup | Your App Name</title>
@@ -106,7 +107,12 @@ export default function Signup() {
         <meta property="og:url" content="https://yourappname.com/signup" />
       </Helmet>
       <Row className="w-100 justify-content-center">
-        <Col md={8} lg={6} xl={4} className="p-4 bg-white rounded shadow-sm">
+        <Col md={8} lg={6} xl={4} className="p-4 rounded"
+             style={{ 
+               background: 'linear-gradient(135deg, #ffffff, #e0e0e0)', 
+               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
+               borderRadius: '15px'
+             }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +131,7 @@ export default function Signup() {
             <h3 className="text-center mb-4">Signup</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formFirstName">
-                <Form.Label>
+                <Form.Label className="text-dark">
                   <PersonFill className="me-2" />
                   First Name
                 </Form.Label>
@@ -137,11 +143,12 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
+                  style={{ backgroundColor: "#f8f9fa" }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formLastName">
-                <Form.Label>
+                <Form.Label className="text-dark">
                   <PersonFill className="me-2" />
                   Last Name
                 </Form.Label>
@@ -153,11 +160,12 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
+                  style={{ backgroundColor: "#f8f9fa" }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label>
+                <Form.Label className="text-dark">
                   <EnvelopeFill className="me-2" />
                   Email address
                 </Form.Label>
@@ -169,11 +177,12 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
+                  style={{ backgroundColor: "#f8f9fa" }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formPassword">
-                <Form.Label>
+                <Form.Label className="text-dark">
                   <LockFill className="me-2" />
                   Password
                 </Form.Label>
@@ -185,11 +194,12 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
+                  style={{ backgroundColor: "#f8f9fa" }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Role</Form.Label>
+                <Form.Label className="text-dark">Role</Form.Label>
                 <ButtonGroup className="d-flex">
                   <Button
                     variant={
@@ -225,7 +235,11 @@ export default function Signup() {
                 variant="primary"
                 type="submit"
                 as={motion.button}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+                  color: '#ffffff'
+                }}
                 whileTap={{ scale: 0.95 }}
                 disabled={loading}
               >
