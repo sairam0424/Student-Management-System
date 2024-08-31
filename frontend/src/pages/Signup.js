@@ -5,6 +5,7 @@ import { SIGNUP_USER } from '../gqlopertions/mutations';
 import { Container, Form, Button, Alert, ButtonGroup, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
+import { PersonFill, EnvelopeFill, LockFill } from 'react-bootstrap-icons'; // Import icons
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Signup() {
@@ -27,7 +28,6 @@ export default function Signup() {
                 setErrorMessage('An unexpected error occurred. Please try again later.');
             }
         } else {
-            // Clear error message if no error
             setErrorMessage('');
         }
     }, [error]);
@@ -35,8 +35,8 @@ export default function Signup() {
     useEffect(() => {
         // Handle successful signup
         if (data && data.user) {
-            localStorage.setItem("role", data.user.role); // Store the role in localStorage
-            setErrorMessage(''); // Clear error message on success
+            localStorage.setItem('role', data.user.role);
+            setErrorMessage('');
         }
     }, [data]);
 
@@ -61,7 +61,6 @@ export default function Signup() {
                 userNew: formData
             }
         }).catch((err) => {
-            // Catch and handle any additional errors from the mutation
             if (err.message.includes('already exists')) {
                 setErrorMessage('An account with this email already exists. Please try logging in.');
             } else {
@@ -101,63 +100,71 @@ export default function Signup() {
                         <h3 className="text-center mb-4">Signup</h3>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formFirstName">
-                                <Form.Label>First Name</Form.Label>
+                                <Form.Label><PersonFill className="me-2" />First Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter your first name"
                                     name="firstName"
+                                    value={formData.firstName}
                                     onChange={handleChange}
                                     required
+                                    className="rounded-pill border-0 shadow-sm"
                                 />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formLastName">
-                                <Form.Label>Last Name</Form.Label>
+                                <Form.Label><PersonFill className="me-2" />Last Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter your last name"
                                     name="lastName"
+                                    value={formData.lastName}
                                     onChange={handleChange}
                                     required
+                                    className="rounded-pill border-0 shadow-sm"
                                 />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formEmail">
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label><EnvelopeFill className="me-2" />Email address</Form.Label>
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter your email"
                                     name="email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
+                                    className="rounded-pill border-0 shadow-sm"
                                 />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formPassword">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label><LockFill className="me-2" />Password</Form.Label>
                                 <Form.Control
                                     type="password"
                                     placeholder="Enter your password"
                                     name="password"
+                                    value={formData.password}
                                     onChange={handleChange}
                                     required
+                                    className="rounded-pill border-0 shadow-sm"
                                 />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Role</Form.Label>
-                                <ButtonGroup className="d-flex flex-wrap">
+                                <ButtonGroup className="d-flex">
                                     <Button
                                         variant={formData.role === 'admin' ? 'primary' : 'outline-primary'}
                                         onClick={() => handleRoleChange('admin')}
-                                        className="flex-fill mb-2"
+                                        className="flex-fill rounded-pill"
                                     >
                                         Admin
                                     </Button>
                                     <Button
                                         variant={formData.role === 'user' ? 'primary' : 'outline-primary'}
                                         onClick={() => handleRoleChange('user')}
-                                        className="flex-fill mb-2"
+                                        className="flex-fill rounded-pill"
                                     >
                                         User
                                     </Button>
@@ -166,12 +173,20 @@ export default function Signup() {
 
                             <Form.Group className="mb-3 text-center">
                                 <Link to="/login">
-                                    <Button variant="link">Already have an account? Login</Button>
+                                    <Button variant="link" className="p-0">Already have an account? Login</Button>
                                 </Link>
                             </Form.Group>
 
-                            <Button className="w-100" variant="primary" type="submit">
-                                Submit
+                            <Button
+                                className="w-100 rounded-pill shadow-sm"
+                                variant="primary"
+                                type="submit"
+                                as={motion.button}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                disabled={loading}
+                            >
+                                {loading ? 'Submitting...' : 'Submit'}
                             </Button>
                         </Form>
                     </motion.div>
