@@ -6,6 +6,7 @@ import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { useUser } from '../customHooks/UserContext';
 import { Helmet } from 'react-helmet';
+import { EnvelopeFill, LockFill } from 'react-bootstrap-icons'; // Import icons
 
 // Lazy load components
 const Shimmer = lazy(() => import('../components/Shimmer'));
@@ -71,7 +72,9 @@ export default function Login() {
                         <h3 className="text-center mb-4">Login</h3>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formEmail">
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label>
+                                    <EnvelopeFill className="me-2" /> Email address
+                                </Form.Label>
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter email"
@@ -83,7 +86,9 @@ export default function Login() {
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formPassword">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label>
+                                    <LockFill className="me-2" /> Password
+                                </Form.Label>
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
@@ -105,6 +110,18 @@ export default function Login() {
                                 Login
                             </Button>
                         </Form>
+                        <div className="text-center mt-4">
+                            <p className="mb-0">Don't have an account?</p>
+                            <Button 
+                                variant="link" 
+                                onClick={() => navigate('/signup')} 
+                                className="p-0"
+                                as={motion.button}
+                                whileHover={{ scale: 1.1 }}
+                            >
+                                Sign Up
+                            </Button>
+                        </div>
                     </motion.div>
                 </Col>
             </Row>
