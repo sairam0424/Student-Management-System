@@ -1,14 +1,10 @@
 import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import typeDefs from "./schemaGql.js";
-import cors from 'cors'
-
+import typeDefs from "./Graphql/schemaGql.js";
 import mongoose from "mongoose";
-// import { JWT_SECRET, MONGO_URL } from "./config.js";
-
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -19,11 +15,9 @@ mongoose
     console.log(err.message);
   });
 
-//import models here
-
 import "./models/UserModel.js";
-import "./models/StudentSchema.js"
-import resolvers from "./resolvers.js";
+import "./models/StudentSchema.js";
+import resolvers from "./resolvers/resolvers.js";
 const context = ({ req }) => {
   const { authorization } = req.headers;
 
@@ -32,7 +26,7 @@ const context = ({ req }) => {
 
     return { userId };
   }
-}
+};
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -41,5 +35,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) => {
-  console.log(`🐵🙊🙈 Server ready at ${url}`);
+  console.log(`🙈🙊🐵 Server ready at ${url}`);
 });
