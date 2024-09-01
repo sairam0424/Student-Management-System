@@ -1,69 +1,70 @@
-// components/SearchComponent.js
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Search } from "react-bootstrap-icons";
 
 // Animation variants for button and input
 const buttonVariants = {
-  hover: { scale: 1.05, backgroundColor: '#ffffff', color: '#000000' },
+  hover: { scale: 1.05, backgroundColor: "#ffffff", color: "#000000" },
   tap: { scale: 0.95 },
 };
 
 const inputVariants = {
   focus: { scale: 1.02, boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)" },
-  blur: { scale: 1, boxShadow: "none" }
+  blur: { scale: 1, boxShadow: "none" },
 };
 
+// Define styles outside of the component to avoid re-creation
+const inputGroupTextStyle = {
+  background: "linear-gradient(135deg, #000000, #C0C0C0)",
+  border: "none",
+};
+
+const inputStyle = {
+  borderRadius: "0 5px 5px 0",
+  border: "none",
+  boxShadow: "none",
+};
+
+const buttonStyle = {
+  background: "linear-gradient(135deg, #000000, #C0C0C0)",
+  border: "none",
+  color: "#ffffff",
+  borderRadius: "5px",
+};
+
+// The component itself
 function SearchComponent({ searchText, setSearchText, onSearch }) {
+  // Memoize the change handler to avoid unnecessary re-creations
+  const handleInputChange = useCallback(
+    (e) => setSearchText(e.target.value),
+    [setSearchText]
+  );
+
   return (
     <div className="mb-4">
-      <InputGroup
-        className="shadow-sm"
-        style={{ borderRadius: "10px", overflow: "hidden" }}
-      >
-        <InputGroup.Text
-          className="bg-dark text-white"
-          style={{
-            background: 'linear-gradient(135deg, #000000, #C0C0C0)',
-            border: 'none',
-          }}
-        >
+      <InputGroup className="shadow-sm" style={{ borderRadius: "10px", overflow: "hidden" }}>
+        <InputGroup.Text className="bg-dark text-white" style={inputGroupTextStyle}>
           <Search />
         </InputGroup.Text>
-        <motion.div
-          initial="blur"
-          whileFocus="focus"
-          variants={inputVariants}
-        >
+        <motion.div initial="blur" whileFocus="focus" variants={inputVariants}>
           <Form.Control
             type="text"
             placeholder="Search students by name..."
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleInputChange}
             className="shadow-sm"
-            style={{
-              borderRadius: "0 5px 5px 0",
-              border: 'none',
-              boxShadow: 'none',
-            }}
+            style={inputStyle}
+            aria-label="Search students by name"
           />
         </motion.div>
-        <motion.div
-          variants={buttonVariants}
-          whileHover="hover"
-          whileTap="tap"
-        >
+        <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
           <Button
             variant="primary"
             onClick={onSearch}
             className="shadow-sm ms-2"
-            style={{
-              background: 'linear-gradient(135deg, #000000, #C0C0C0)',
-              border: 'none',
-              color: '#ffffff',
-              borderRadius: '5px',
-            }}
+            style={buttonStyle}
+            aria-label="Search"
           >
             Search
           </Button>
@@ -73,4 +74,4 @@ function SearchComponent({ searchText, setSearchText, onSearch }) {
   );
 }
 
-export default SearchComponent;
+export default memo(SearchComponent);
