@@ -1,3 +1,5 @@
+/* The above code is a React component named `StudentForm` that serves as a form for adding or updating
+student information. Here is a breakdown of its functionality: */
 import React, { memo } from "react";
 import { Modal, Form, Button, InputGroup } from "react-bootstrap";
 import { motion } from "framer-motion";

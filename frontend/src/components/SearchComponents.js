@@ -1,3 +1,10 @@
+/**
+ * The `SearchComponent` function is a React component that displays a search input field with a search
+ * button, styled with animations and custom styles.
+ * @returns The `SearchComponent` function component is being returned. It renders a search input field
+ * with an associated button for searching students by name. The component utilizes various animations
+ * and styles to enhance the user interface.
+ */
 import React, { memo, useCallback } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { motion } from "framer-motion";

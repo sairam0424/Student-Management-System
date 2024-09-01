@@ -1,3 +1,5 @@
+/* This code snippet is a React component that creates a loading placeholder UI using shimmer animation
+effects. Here's a breakdown of what the code does: */
 import React, { memo } from "react";
 import { Placeholder, Card, Row, Col, Container } from "react-bootstrap";
 import { motion } from "framer-motion";

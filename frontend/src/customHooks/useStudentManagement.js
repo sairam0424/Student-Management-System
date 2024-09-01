@@ -1,3 +1,9 @@
+/**
+ * The function `useStudentManagement` manages student data including querying, creating, updating, and
+ * deleting students in a React application.
+ * @returns The `useStudentManagement` custom hook is returning an object with the following properties
+ * and functions:
+ */
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import {

@@ -1,3 +1,12 @@
+/**
+ * The `NavBar` component in this code snippet is a React functional component that renders a
+ * navigation bar with login/logout and signup links based on the presence of a token in local storage.
+ * @returns The `NavBar` component is being returned. It is a functional component that renders a
+ * navigation bar using various components and styles from libraries like React Bootstrap, Framer
+ * Motion, and React Icons. The navigation bar includes links for Home, Login, and Signup, as well as a
+ * Logout button if a token is present in the local storage. The component also includes SEO metadata
+ * using the `Helmet` component.
+ */
 import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";

@@ -1,3 +1,5 @@
+/* The above code is a React component named `StudentProfile` that displays a modal with a student's
+profile information. Here is a breakdown of what the code is doing: */
 import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button, Card, Row, Col, Image } from "react-bootstrap";
 import { motion } from "framer-motion";

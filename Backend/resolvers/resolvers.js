@@ -1,3 +1,6 @@
+/* This code snippet is a set of resolvers for a GraphQL schema. It includes queries and mutations to
+interact with a MongoDB database using Mongoose for object modeling, bcrypt for password hashing,
+and jsonwebtoken for generating authentication tokens. */
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

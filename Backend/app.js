@@ -1,3 +1,5 @@
+/* This code snippet is setting up a GraphQL server using Apollo Server in a Node.js environment.
+Here's a breakdown of what each part of the code is doing: */
 import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import typeDefs from "./Graphql/schemaGql.js";

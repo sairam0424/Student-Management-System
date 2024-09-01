@@ -1,3 +1,5 @@
+/* This JavaScript code snippet is defining routes for a web application using React Router. Here's a
+breakdown of what it's doing: */
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Login from "./pages/Login";

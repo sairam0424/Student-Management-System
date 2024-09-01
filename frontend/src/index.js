@@ -1,3 +1,5 @@
+/* This code snippet is setting up a React application with various dependencies and configurations.
+Here's a breakdown of what each part is doing: */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
