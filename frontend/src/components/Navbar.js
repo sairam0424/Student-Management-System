@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import { motion } from "framer-motion";
-import {
-  PersonCircle,
-  BoxArrowRight,
-  BoxArrowInRight,
-} from "react-bootstrap-icons";
+import { PersonCircle, BoxArrowRight, BoxArrowInRight } from "react-bootstrap-icons";
 import { FaHome } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 
@@ -14,15 +10,28 @@ export default function NavBar() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  // Memoize the handleLogout function to avoid re-creation
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     navigate("/login");
+  }, [navigate]);
+
+  // Define styles and hover effects outside of JSX to avoid recreating them
+  const buttonStyle = {
+    background: "linear-gradient(135deg, #333333, #7f8c8d)",
+    border: "none",
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
   };
 
-  const navbarStyle = {
-    background: "linear-gradient(135deg, #000000, #C0C0C0)",
-    color: "#FFFFFF",
+  const buttonHoverStyle = {
+    background: "linear-gradient(135deg, #7f8c8d, #333333)",
+  };
+
+  const buttonLeaveStyle = {
+    background: "linear-gradient(135deg, #333333, #7f8c8d)",
   };
 
   return (
@@ -32,7 +41,7 @@ export default function NavBar() {
         <meta name="description" content="Home SMS application" />
         {/* Add other SEO tags here */}
       </Helmet>
-      <Navbar style={navbarStyle} variant="dark" expand="lg">
+      <Navbar style={{ background: "linear-gradient(135deg, #000000, #C0C0C0)", color: "#FFFFFF" }} variant="dark" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/" style={{ color: "#FFFFFF" }}>
             <FaHome className="me-2" />
@@ -40,7 +49,7 @@ export default function NavBar() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto"></Nav>
+            <Nav className="me-auto" />
             <Nav className="ms-auto">
               {token ? (
                 <motion.div
@@ -52,19 +61,14 @@ export default function NavBar() {
                     variant="outline-light"
                     onClick={handleLogout}
                     className="d-flex align-items-center btn-custom"
-                    style={{
-                      background: "linear-gradient(135deg, #333333, #7f8c8d)", // Lighter gradient
-                      border: "none",
-                      color: "#FFFFFF",
-                      fontWeight: "bold",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                    }}
+                    style={buttonStyle}
                     onMouseEnter={(e) => {
-                      e.target.style.background = "linear-gradient(135deg, #7f8c8d, #333333)";
+                      e.target.style.background = buttonHoverStyle.background;
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.background = "linear-gradient(135deg, #333333, #7f8c8d)";
+                      e.target.style.background = buttonLeaveStyle.background;
                     }}
+                    aria-label="Logout"
                   >
                     <BoxArrowRight className="me-2" />
                     Logout
@@ -81,6 +85,7 @@ export default function NavBar() {
                       as={Link}
                       to="/login"
                       style={{ color: "#FFFFFF" }}
+                      aria-label="Login"
                     >
                       <PersonCircle className="me-2" />
                       Login
@@ -95,6 +100,7 @@ export default function NavBar() {
                       as={Link}
                       to="/signup"
                       style={{ color: "#FFFFFF" }}
+                      aria-label="Signup"
                     >
                       <BoxArrowInRight className="me-2" />
                       Signup
