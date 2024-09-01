@@ -7,13 +7,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
 import { UserProvider } from './customHooks/UserContext';
+import { BASE_URL } from './url'
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  // uri: 'http://localhost:4000',
+  uri: BASE_URL,
+
   cache: new InMemoryCache()
 });
 

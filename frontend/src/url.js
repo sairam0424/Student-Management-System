@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://student-management-system-w0yt.onrender.com'
