@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button, Card, Row, Col, Image } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
@@ -12,6 +12,7 @@ import {
   MoonFill,
 } from "react-bootstrap-icons";
 
+// Framer Motion Variants
 const modalVariants = {
   hidden: { opacity: 0, y: -50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -28,36 +29,40 @@ const detailVariants = {
   visible: { x: 0, opacity: 1, transition: { duration: 0.4, delay: 0.2 } },
 };
 
-const StudentProfile = ({ show, handleClose, student }) => {
+// Component Definition
+const StudentProfile = React.memo(({ show, handleClose, student }) => {
   const [darkMode, setDarkMode] = useState(true); // Default to dark mode
 
-  useEffect(() => {
-    // Optionally, you could check the user's preference from localStorage or another source
+  // Function to toggle dark mode state, always defined regardless of render outcome
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prevMode) => !prevMode);
   }, []);
 
+  // Effect Hook - Optional: Check user's preference from localStorage or another source
+  useEffect(() => {
+    // Could implement a check for user preference here
+  }, []);
+
+  // Ensure the component is only rendered when student data is present
   if (!student) return null;
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
-  const cardStyle = darkMode
-    ? "bg-dark text-white"
-    : "bg-light text-dark";
+  // Dynamic styles based on dark mode state
+  const cardStyle = darkMode ? "bg-dark text-white" : "bg-light text-dark";
   const headerStyle = darkMode
     ? "bg-gradient text-white"
     : "bg-gradient-light text-dark";
   const buttonVariant = darkMode ? "outline-light" : "outline-dark";
-  // eslint-disable-next-line no-unused-vars
-  const buttonHoverStyle = darkMode
-    ? { backgroundColor: "#ffffff", color: "#000000" }
-    : { backgroundColor: "#000000", color: "#ffffff" };
 
   return (
     <>
+      {/* Helmet for SEO and Meta Information */}
       <Helmet>
         <title>{student.name}'s Profile | Your App Name</title>
         <meta name="description" content={`Profile of ${student.name}.`} />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
+
+      {/* Modal with Motion for Animations */}
       <Modal show={show} onHide={handleClose} size="lg" centered>
         <motion.div
           variants={modalVariants}
@@ -66,6 +71,7 @@ const StudentProfile = ({ show, handleClose, student }) => {
           exit="exit"
         >
           <Card className={`border-0 shadow ${cardStyle}`}>
+            {/* Card Header with Gradient Background */}
             <Card.Header
               className={`d-flex align-items-center justify-content-between ${headerStyle}`}
               style={{
@@ -81,19 +87,25 @@ const StudentProfile = ({ show, handleClose, student }) => {
                 {student.name}'s Profile
               </motion.h5>
               <div>
+                {/* Dark Mode Toggle Button */}
                 <Button
                   variant={buttonVariant}
                   onClick={toggleDarkMode}
                   className="me-2"
+                  aria-label={`Toggle to ${darkMode ? "light" : "dark"} mode`}
                 >
                   {darkMode ? <SunFill /> : <MoonFill />}
                 </Button>
+                {/* Close Modal Button */}
                 <Button variant={buttonVariant} onClick={handleClose}>
                   Close
                 </Button>
               </div>
             </Card.Header>
+
+            {/* Card Body with Student Information */}
             <Card.Body>
+              {/* Profile Image with Motion Effects */}
               <motion.div
                 className="text-center mb-4"
                 variants={imageVariants}
@@ -102,7 +114,7 @@ const StudentProfile = ({ show, handleClose, student }) => {
               >
                 <Image
                   src={student.image}
-                  alt={student.name}
+                  alt={`Profile of ${student.name}`}
                   roundedCircle
                   style={{
                     width: "150px",
@@ -110,6 +122,8 @@ const StudentProfile = ({ show, handleClose, student }) => {
                   }}
                 />
               </motion.div>
+
+              {/* Student Details with Motion Effects */}
               <motion.div
                 variants={detailVariants}
                 initial="hidden"
@@ -153,19 +167,19 @@ const StudentProfile = ({ show, handleClose, student }) => {
                 </Row>
               </motion.div>
             </Card.Body>
+
+            {/* Card Footer with Gradient Background */}
             <Card.Footer
               className={`text-center ${cardStyle}`}
               style={{
                 background: "linear-gradient(135deg, #000000, #C0C0C0)", // Gradient footer
               }}
-            >
-              {/* Removed the redundant Close button */}
-            </Card.Footer>
+            ></Card.Footer>
           </Card>
         </motion.div>
       </Modal>
     </>
   );
-};
+});
 
 export default StudentProfile;
