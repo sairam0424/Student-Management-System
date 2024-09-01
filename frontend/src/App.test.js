@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
-test("renders stiudent mgmt ", () => {
+test("renders stiudent mgmt", () => {
   render(
     <BrowserRouter>
       <App />

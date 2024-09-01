@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { DELETE_STUDENT } from "../gqlopertions/mutations";
-import { Card, Button, Image, Row, Col } from "react-bootstrap";
+import { Button, Image, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { PencilSquare, Trash, Eye } from 'react-bootstrap-icons';

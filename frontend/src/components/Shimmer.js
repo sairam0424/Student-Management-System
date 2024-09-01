@@ -1,5 +1,5 @@
 import React from "react";
-import { Placeholder, Card, Row, Col, Container, Button } from "react-bootstrap";
+import { Placeholder, Card, Row, Col, Container} from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
