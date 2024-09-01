@@ -46,6 +46,7 @@ const StudentProfile = ({ show, handleClose, student }) => {
     ? "bg-gradient text-white"
     : "bg-gradient-light text-dark";
   const buttonVariant = darkMode ? "outline-light" : "outline-dark";
+  // eslint-disable-next-line no-unused-vars
   const buttonHoverStyle = darkMode
     ? { backgroundColor: "#ffffff", color: "#000000" }
     : { backgroundColor: "#000000", color: "#ffffff" };
