@@ -1,13 +1,46 @@
-import React from "react";
-import { Placeholder, Card, Row, Col, Container} from "react-bootstrap";
+import React, { memo } from "react";
+import { Placeholder, Card, Row, Col, Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
+// Define shimmer animation variants outside component
 const shimmerAnimation = {
   initial: { opacity: 0 },
   animate: { opacity: [0, 1] },
   transition: { duration: 1.5, repeat: Infinity, repeatType: "reverse" },
 };
+
+// Static styles
+const containerStyle = {
+  background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+  color: '#ffffff',
+  minHeight: '100vh',
+  padding: '2rem',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const placeholderStyle = {
+  background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+};
+
+const ShimmerCard = memo(() => (
+  <Card className="shadow-sm border-0">
+    <Card.Body>
+      <motion.div
+        variants={shimmerAnimation}
+        initial="initial"
+        animate="animate"
+      >
+        <Placeholder as="div" animation="glow">
+          <Placeholder xs={12} style={{ ...placeholderStyle, height: '150px' }} />
+          <Placeholder xs={12} className="mt-2" style={{ ...placeholderStyle, height: '20px' }} />
+          <Placeholder xs={12} className="mt-2" style={{ ...placeholderStyle, height: '20px' }} />
+        </Placeholder>
+      </motion.div>
+    </Card.Body>
+  </Card>
+));
 
 const Shimmer = () => {
   return (
@@ -17,17 +50,7 @@ const Shimmer = () => {
         <meta name="description" content="Loading placeholder for Your App Name." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <Container
-        className="mt-5"
-        style={{
-          background: 'linear-gradient(135deg, #000000, #C0C0C0)',
-          color: '#ffffff',
-          minHeight: '100vh',
-          padding: '2rem',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <Container className="mt-5" style={containerStyle}>
         {/* Header Shimmer */}
         <Row className="mb-4 align-items-center">
           <Col xs={12} md={4} className="d-flex align-items-center">
@@ -39,14 +62,14 @@ const Shimmer = () => {
               <Card className="shadow-sm border-0">
                 <Card.Body>
                   <Placeholder as={Card.Title} animation="glow">
-                    <Placeholder xs={6} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }} />
+                    <Placeholder xs={6} style={placeholderStyle} />
                   </Placeholder>
                   <Placeholder
                     as={Card.Subtitle}
                     animation="glow"
                     className="mb-3"
                   >
-                    <Placeholder xs={4} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }} />
+                    <Placeholder xs={4} style={placeholderStyle} />
                   </Placeholder>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -57,7 +80,7 @@ const Shimmer = () => {
                       xs={6}
                       className="w-100"
                       style={{
-                        background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+                        ...placeholderStyle,
                         border: 'none',
                         color: '#ffffff',
                         cursor: 'pointer',
@@ -78,7 +101,7 @@ const Shimmer = () => {
               style={{ color: '#ffffff' }}
             >
               <Placeholder as="div" animation="glow">
-                <Placeholder xs={12} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }} />
+                <Placeholder xs={12} style={placeholderStyle} />
               </Placeholder>
             </motion.h1>
           </Col>
@@ -91,7 +114,7 @@ const Shimmer = () => {
                 animate="animate"
               >
                 <Placeholder as="div" animation="glow">
-                  <Placeholder xs={6} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }} />
+                  <Placeholder xs={6} style={placeholderStyle} />
                 </Placeholder>
               </motion.div>
             </div>
@@ -102,21 +125,7 @@ const Shimmer = () => {
         <Row>
           {[...Array(6)].map((_, idx) => (
             <Col xs={12} md={4} lg={3} key={idx} className="mb-4">
-              <Card className="shadow-sm border-0">
-                <Card.Body>
-                  <motion.div
-                    variants={shimmerAnimation}
-                    initial="initial"
-                    animate="animate"
-                  >
-                    <Placeholder as="div" animation="glow">
-                      <Placeholder xs={12} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '150px' }} />
-                      <Placeholder xs={12} className="mt-2" style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '20px' }} />
-                      <Placeholder xs={12} className="mt-2" style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '20px' }} />
-                    </Placeholder>
-                  </motion.div>
-                </Card.Body>
-              </Card>
+              <ShimmerCard />
             </Col>
           ))}
         </Row>
@@ -125,21 +134,7 @@ const Shimmer = () => {
         <Row>
           {[...Array(3)].map((_, idx) => (
             <Col xs={12} md={4} key={idx} className="mb-4">
-              <Card className="shadow-sm border-0">
-                <Card.Body>
-                  <motion.div
-                    variants={shimmerAnimation}
-                    initial="initial"
-                    animate="animate"
-                  >
-                    <Placeholder as="div" animation="glow">
-                      <Placeholder xs={12} style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '150px' }} />
-                      <Placeholder xs={12} className="mt-2" style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '20px' }} />
-                      <Placeholder xs={12} className="mt-2" style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', height: '20px' }} />
-                    </Placeholder>
-                  </motion.div>
-                </Card.Body>
-              </Card>
+              <ShimmerCard />
             </Col>
           ))}
         </Row>
@@ -148,4 +143,4 @@ const Shimmer = () => {
   );
 };
 
-export default Shimmer;
+export default memo(Shimmer);
