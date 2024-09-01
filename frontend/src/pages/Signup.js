@@ -2,18 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SIGNUP_USER } from "../gqlopertions/mutations";
-import {
-  Container,
-  Form,
-  Button,
-  Alert,
-  ButtonGroup,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Form, Button, Alert, ButtonGroup, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
-import { PersonFill, EnvelopeFill, LockFill } from "react-bootstrap-icons"; // Import icons
+import { PersonFill, EnvelopeFill, LockFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Signup() {
@@ -28,7 +20,6 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    // Handle GraphQL error
     if (error) {
       if (error.message.includes("already exists")) {
         setErrorMessage(
@@ -45,7 +36,6 @@ export default function Signup() {
   }, [error]);
 
   useEffect(() => {
-    // Handle successful signup
     if (data && data.user) {
       localStorage.setItem("role", data.user.role);
       setErrorMessage("");
@@ -89,7 +79,7 @@ export default function Signup() {
     <Container
       fluid
       className="d-flex align-items-center justify-content-center min-vh-100"
-      style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)' }}
+      style={{ background: 'linear-gradient(135deg, #000000, #C0C0C0)', overflow: 'hidden' }}
     >
       <Helmet>
         <title>Signup | Your App Name</title>
@@ -107,12 +97,42 @@ export default function Signup() {
         <meta property="og:url" content="https://yourappname.com/signup" />
       </Helmet>
       <Row className="w-100 justify-content-center">
-        <Col md={8} lg={6} xl={4} className="p-4 rounded"
-             style={{ 
-               background: 'linear-gradient(135deg, #ffffff, #e0e0e0)', 
-               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
-               borderRadius: '15px'
-             }}>
+        <Col
+          md={8}
+          lg={6}
+          xl={4}
+          className="p-4 position-relative"
+          as={motion.div}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            background: "rgba(255, 255, 255, 0.1)", // Glassmorphism effect
+            borderRadius: "15px",
+            border: "1px solid rgba(255, 255, 255, 0.2)", // Glass border
+            backdropFilter: "blur(15px)", // Glass blur effect
+            WebkitBackdropFilter: "blur(15px)", // Safari support for backdrop-filter
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.5)", // Deep shadow for glow effect
+            overflow: "hidden", // Prevent overflow for effects
+            position: "relative", // For pseudo-elements
+          }}
+        >
+          {/* Neon Glow Effect */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-20px",
+              left: "-20px",
+              right: "-20px",
+              bottom: "-20px",
+              borderRadius: "20px",
+              background:
+                "linear-gradient(135deg, #000000, #C0C0C0)", // Updated to use the same gradient
+              filter: "blur(20px)",
+              zIndex: "-1",
+            }}
+          ></div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,12 +148,13 @@ export default function Signup() {
                 {data.user.firstName} is signed up. You can login now!
               </Alert>
             )}
-            <h3 className="text-center mb-4">Signup</h3>
+            <h3 className="text-center mb-4" style={{ color: "#ffffff" }}>
+              Signup
+            </h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formFirstName">
-                <Form.Label className="text-dark">
-                  <PersonFill className="me-2" />
-                  First Name
+                <Form.Label style={{ color: "#dcdcdc" }}>
+                  <PersonFill className="me-2" /> First Name
                 </Form.Label>
                 <Form.Control
                   type="text"
@@ -143,14 +164,23 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
-                  style={{ backgroundColor: "#f8f9fa" }}
+                  style={{
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "#ffffff",
+                    backdropFilter: "blur(5px)", // Blur effect inside the input
+                    border: "1px solid rgba(255, 255, 255, 0.3)", // Light border
+                    transition: "border 0.3s ease",
+                  }}
+                  as={motion.input}
+                  whileFocus={{
+                    border: "1px solid #007bff",
+                  }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formLastName">
-                <Form.Label className="text-dark">
-                  <PersonFill className="me-2" />
-                  Last Name
+                <Form.Label style={{ color: "#dcdcdc" }}>
+                  <PersonFill className="me-2" /> Last Name
                 </Form.Label>
                 <Form.Control
                   type="text"
@@ -160,14 +190,23 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
-                  style={{ backgroundColor: "#f8f9fa" }}
+                  style={{
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "#ffffff",
+                    backdropFilter: "blur(5px)", // Blur effect inside the input
+                    border: "1px solid rgba(255, 255, 255, 0.3)", // Light border
+                    transition: "border 0.3s ease",
+                  }}
+                  as={motion.input}
+                  whileFocus={{
+                    border: "1px solid #007bff",
+                  }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label className="text-dark">
-                  <EnvelopeFill className="me-2" />
-                  Email address
+                <Form.Label style={{ color: "#dcdcdc" }}>
+                  <EnvelopeFill className="me-2" /> Email address
                 </Form.Label>
                 <Form.Control
                   type="email"
@@ -177,14 +216,23 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
-                  style={{ backgroundColor: "#f8f9fa" }}
+                  style={{
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "#ffffff",
+                    backdropFilter: "blur(5px)", // Blur effect inside the input
+                    border: "1px solid rgba(255, 255, 255, 0.3)", // Light border
+                    transition: "border 0.3s ease",
+                  }}
+                  as={motion.input}
+                  whileFocus={{
+                    border: "1px solid #007bff",
+                  }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formPassword">
-                <Form.Label className="text-dark">
-                  <LockFill className="me-2" />
-                  Password
+                <Form.Label style={{ color: "#dcdcdc" }}>
+                  <LockFill className="me-2" /> Password
                 </Form.Label>
                 <Form.Control
                   type="password"
@@ -194,12 +242,22 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   className="rounded-pill border-0 shadow-sm"
-                  style={{ backgroundColor: "#f8f9fa" }}
+                  style={{
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "#ffffff",
+                    backdropFilter: "blur(5px)", // Blur effect inside the input
+                    border: "1px solid rgba(255, 255, 255, 0.3)", // Light border
+                    transition: "border 0.3s ease",
+                  }}
+                  as={motion.input}
+                  whileFocus={{
+                    border: "1px solid #007bff",
+                  }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label className="text-dark">Role</Form.Label>
+                <Form.Label className="text-light">Role</Form.Label>
                 <ButtonGroup className="d-flex">
                   <Button
                     variant={
@@ -207,6 +265,11 @@ export default function Signup() {
                     }
                     onClick={() => handleRoleChange("admin")}
                     className="flex-fill rounded-pill"
+                    style={{
+                      background: formData.role === "admin" ? 'linear-gradient(135deg, #000000, #C0C0C0)' : 'transparent',
+                      color: formData.role === "admin" ? '#ffffff' : '#ffffff',
+                      borderColor: formData.role === "admin" ? 'transparent' : '#ffffff',
+                    }}
                   >
                     Admin
                   </Button>
@@ -216,6 +279,11 @@ export default function Signup() {
                     }
                     onClick={() => handleRoleChange("user")}
                     className="flex-fill rounded-pill"
+                    style={{
+                      background: formData.role === "user" ? 'linear-gradient(135deg, #000000, #C0C0C0)' : 'transparent',
+                      color: formData.role === "user" ? '#ffffff' : '#ffffff',
+                      borderColor: formData.role === "user" ? 'transparent' : '#ffffff',
+                    }}
                   >
                     User
                   </Button>
@@ -224,7 +292,7 @@ export default function Signup() {
 
               <Form.Group className="mb-3 text-center">
                 <Link to="/login">
-                  <Button variant="link" className="p-0">
+                  <Button variant="link" className="p-0 text-light">
                     Already have an account? Login
                   </Button>
                 </Link>
@@ -242,6 +310,11 @@ export default function Signup() {
                 }}
                 whileTap={{ scale: 0.95 }}
                 disabled={loading}
+                style={{
+                  background: 'linear-gradient(135deg, #000000, #C0C0C0)',
+                  border: 'none',
+                  color: '#ffffff',
+                }}
               >
                 {loading ? "Submitting..." : "Submit"}
               </Button>
