@@ -10,7 +10,6 @@ import {
 import { FaHome } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 
-
 export default function NavBar() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -45,14 +44,27 @@ export default function NavBar() {
             <Nav className="ms-auto">
               {token ? (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
                 >
                   <Button
-                    variant="danger"
+                    variant="outline-light"
                     onClick={handleLogout}
                     className="d-flex align-items-center btn-custom"
+                    style={{
+                      background: "linear-gradient(135deg, #333333, #7f8c8d)", // Lighter gradient
+                      border: "none",
+                      color: "#FFFFFF",
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = "linear-gradient(135deg, #7f8c8d, #333333)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = "linear-gradient(135deg, #333333, #7f8c8d)";
+                    }}
                   >
                     <BoxArrowRight className="me-2" />
                     Logout
