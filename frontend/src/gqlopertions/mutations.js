@@ -1,5 +1,6 @@
 /* This code snippet is defining GraphQL operations using the `gql` tag from the Apollo Client library.
 Here's a breakdown of what each operation is doing: */
+
 import { gql } from "@apollo/client";
 
 export const SIGNUP_USER = gql`

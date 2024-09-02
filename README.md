@@ -15,6 +15,7 @@
 - [Deployment](#deployment)
 - [License](#license)
 
+
 ## Introduction
 
 The Student Management System (SMS) is an advanced solution designed to manage various aspects of student data and activities within a college or educational institution. It provides tools for managing student records, tracking academic progress, and facilitating communication between students and the administration.
@@ -28,6 +29,9 @@ The Student Management System (SMS) is an advanced solution designed to manage v
 - Task management for student-related activities.
 - Reporting and Analytics for academic performance.
 - Query Bot Integration for student inquiries.
+
+
+![](./frontend//asserts/Graphqlvalid.png)
 
 ## System Architecture
 
