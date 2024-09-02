@@ -29,6 +29,13 @@ The Student Management System (SMS) is an advanced solution designed to manage v
 - Reporting and Analytics for academic performance.
 - Query Bot Integration for student inquiries.
 
+  #Demo:
+![screenshot]:*frontend/asserts/UI1*
+![screenshot]:*frontend/asserts/Ui4*
+![screenshot]:*frontend/asserts/UI9*
+
+
+
 ## System Architecture
 
 The Student Management System uses a microservice architecture with separate components for the backend and web frontend.
@@ -40,6 +47,9 @@ The Student Management System uses a microservice architecture with separate com
 ### Web Frontend:
 - **Technologies:** React, Redux, Tailwind CSS, React-Bootstrap, GraphQL,React-Icons
 - **Description:** The frontend is a single-page application built with React, featuring a responsive and user-friendly interface.
+
+
+
 
 ## Technology Stack
 
